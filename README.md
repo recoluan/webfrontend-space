@@ -24,9 +24,11 @@
 8. [重学JS系列 - 闭包](https://github.com/cxh0224/blog/issues/14)
 10. [重学JS系列 - 函数是如何运行的](https://github.com/cxh0224/blog/issues/16)
 11. [重学JS系列 - 参数按值传递](https://github.com/cxh0224/blog/issues/6)
-12. [重学JS系列 - this](https://github.com/cxh0224/blog/issues/15)
-13. [重学JS系列 - call和apply原理及应用](https://github.com/cxh0224/blog/issues/17)
-14. [重学JS系列 - bind原理及应用](https://github.com/cxh0224/blog/issues/18)
+
+### Part2 全面解析 this
+1. [重学JS系列 - this](https://github.com/cxh0224/blog/issues/15)
+2. [重学JS系列 - call和apply原理及应用](https://github.com/cxh0224/blog/issues/17)
+3. [重学JS系列 - bind原理及应用](https://github.com/cxh0224/blog/issues/18)
 
 ### Part3 原型和继承
 1. [重学JS系列 - 理解构造函数](https://github.com/cxh0224/blog/issues/19)
