@@ -1,49 +1,49 @@
 # 进击的程序媛
 这里是 **风到这里就是粘** 的博客，是我梳理自己知识体系的地方。前端的入坑真的是一去不复返的，在前进的道路上，希望我们可以共勉之！
 
-预计包含 JS 深入系列、JS 专题系列、React 系列、ES 系列、小波文系列等等。
+预计包含 重学JS系列、JS 专题系列、React 系列、ES 系列、小波文系列等等。
 
 # 更新进度
-目前，JS 深入系列正在发布中，已更新到 **Part 4 异步和性能**。
+目前，重学JS系列 正在发布中，已更新到 **Part 4 异步和性能**。
 
-# JS 深入系列目录
+# 重学JS系列 目录
 ### Part1 变量和类型
-1. [JS深入系列 - 从堆、栈、内存机制开始](https://github.com/cxh0224/blog/issues/1)
-2. [JS深入系列 - 变量及数据类型](https://github.com/cxh0224/blog/issues/2)
-3. [JS深入系列 - 数据类型转换](https://github.com/cxh0224/blog/issues/3)
-4. [JS深入系列 - 函数](https://github.com/cxh0224/blog/issues/4)
+1. [重学JS系列 - 从堆、栈、内存机制开始](https://github.com/cxh0224/blog/issues/1)
+2. [重学JS系列 - 变量及数据类型](https://github.com/cxh0224/blog/issues/2)
+3. [重学JS系列 - 数据类型转换](https://github.com/cxh0224/blog/issues/3)
+4. [重学JS系列 - 函数](https://github.com/cxh0224/blog/issues/4)
 
 ### Part2 执行上下文、作用域、闭包
-1. [JS深入系列 - 编译](https://github.com/cxh0224/blog/issues/7)
-2. [JS深入系列 - 词法作用域](https://github.com/cxh0224/blog/issues/8)
-3. [JS深入系列 - 提升](https://github.com/cxh0224/blog/issues/9)
-4. [JS深入系列 - 理解执行上下文](https://github.com/cxh0224/blog/issues/12)
-5. [JS深入系列 - 执行上下文栈](https://github.com/cxh0224/blog/issues/10)
-6. [JS深入系列 - 变量对象](https://github.com/cxh0224/blog/issues/11)
-7. [JS深入系列 - 作用域链](https://github.com/cxh0224/blog/issues/13)
-8. [JS深入系列 - 闭包](https://github.com/cxh0224/blog/issues/14)
-10. [JS深入系列 - 函数是如何运行的](https://github.com/cxh0224/blog/issues/16)
-11. [JS深入系列 - 参数按值传递](https://github.com/cxh0224/blog/issues/6)
-12. [JS深入系列 - this](https://github.com/cxh0224/blog/issues/15)
-13. [JS深入系列 - call和apply原理及应用](https://github.com/cxh0224/blog/issues/17)
-14. [JS深入系列 - bind原理及应用](https://github.com/cxh0224/blog/issues/18)
+1. [重学JS系列 - 编译](https://github.com/cxh0224/blog/issues/7)
+2. [重学JS系列 - 词法作用域](https://github.com/cxh0224/blog/issues/8)
+3. [重学JS系列 - 提升](https://github.com/cxh0224/blog/issues/9)
+4. [重学JS系列 - 理解执行上下文](https://github.com/cxh0224/blog/issues/12)
+5. [重学JS系列 - 执行上下文栈](https://github.com/cxh0224/blog/issues/10)
+6. [重学JS系列 - 变量对象](https://github.com/cxh0224/blog/issues/11)
+7. [重学JS系列 - 作用域链](https://github.com/cxh0224/blog/issues/13)
+8. [重学JS系列 - 闭包](https://github.com/cxh0224/blog/issues/14)
+10. [重学JS系列 - 函数是如何运行的](https://github.com/cxh0224/blog/issues/16)
+11. [重学JS系列 - 参数按值传递](https://github.com/cxh0224/blog/issues/6)
+12. [重学JS系列 - this](https://github.com/cxh0224/blog/issues/15)
+13. [重学JS系列 - call和apply原理及应用](https://github.com/cxh0224/blog/issues/17)
+14. [重学JS系列 - bind原理及应用](https://github.com/cxh0224/blog/issues/18)
 
 ### Part3 原型和继承
-1. [JS深入系列 - 理解构造函数](https://github.com/cxh0224/blog/issues/19)
-2. [JS深入系列 - 原型及原型链](https://github.com/cxh0224/blog/issues/20)
-3. [JS深入系列 - 图解继承的几种方式](https://github.com/cxh0224/blog/issues/21)
-4. [JS深入系列 - 检测数据类型](https://github.com/cxh0224/blog/issues/22)
-5. [JS深入系列 - Function & Object鸡蛋问题](https://github.com/cxh0224/blog/issues/23)
-6. [JS深入系列 - 函数的不同角色](https://github.com/cxh0224/blog/issues/24)
+1. [重学JS系列 - 理解构造函数](https://github.com/cxh0224/blog/issues/19)
+2. [重学JS系列 - 原型及原型链](https://github.com/cxh0224/blog/issues/20)
+3. [重学JS系列 - 图解继承的几种方式](https://github.com/cxh0224/blog/issues/21)
+4. [重学JS系列 - 检测数据类型](https://github.com/cxh0224/blog/issues/22)
+5. [重学JS系列 - Function & Object鸡蛋问题](https://github.com/cxh0224/blog/issues/23)
+6. [重学JS系列 - 函数的不同角色](https://github.com/cxh0224/blog/issues/24)
 
 ### Part4 异步和性能
 <!-- 
-1. [JS深入系列 - JS是单线程的](https://github.com/cxh0224/blog/issues/2)
-2. [JS深入系列 - 任务队列及Event-loop](https://github.com/cxh0224/blog/issues/2)
-3. [JS深入系列 - 宏任务和微任务](https://github.com/cxh0224/blog/issues/2)
-4. [JS深入系列 - AJAX及跨域](https://github.com/cxh0224/blog/issues/2)
-5. JS深入系列 - DOM
-6. JS深入系列 - 事件机制 -->
+1. [重学JS系列 - JS是单线程的](https://github.com/cxh0224/blog/issues/2)
+2. [重学JS系列 - 任务队列及Event-loop](https://github.com/cxh0224/blog/issues/2)
+3. [重学JS系列 - 宏任务和微任务](https://github.com/cxh0224/blog/issues/2)
+4. [重学JS系列 - AJAX及跨域](https://github.com/cxh0224/blog/issues/2)
+5. 重学JS系列 - DOM
+6. 重学JS系列 - 事件机制 -->
 敬请期待。。。
 
 
