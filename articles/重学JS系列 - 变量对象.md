@@ -1,5 +1,5 @@
 # 写在前面
-在[《JS深入系列 - 理解执行上下文》](https://github.com/cxh0224/blog/issues/12)中讲到：
+在[《重学 JS 系列 - 理解执行上下文》](https://github.com/cxh0224/blog/issues/12)中讲到：
 
 对于每个执行上下文，都有三个重要属性：
 - 变量对象(Variable object，VO)
@@ -151,7 +151,7 @@ AO = {
 - [ECMA-262-3 in detail. Chapter 2. Variable object.](http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/)
 
 # 结束
-**JS深入系列**预计20篇左右，这是一个旨在帮助大家，其实也是帮助我自己捋顺JavaScript底层知识的系列。主要包括变量和数据类型、作用域及闭包、原型和继承、异步和性能四个部分，将重点讲解如作用域、闭包、this、call、apply、bind、原型、类型检测、继承、异步等等JS语言中的比较难懂的部分。让我们一起拥抱整个JavaScript吧。
+**重学 JS 系列**预计20篇左右，这是一个旨在帮助大家，其实也是帮助我自己捋顺JavaScript底层知识的系列。主要包括变量和数据类型、作用域及闭包、原型和继承、异步和性能四个部分，将重点讲解如作用域、闭包、this、call、apply、bind、原型、类型检测、继承、异步等等JS语言中的比较难懂的部分。让我们一起拥抱整个JavaScript吧。
 
 大家或有疑问或指正或鼓励或感谢，尽管留言回复哈！非常欢迎你来star哦！
 

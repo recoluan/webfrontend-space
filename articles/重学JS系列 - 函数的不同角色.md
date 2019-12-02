@@ -176,7 +176,7 @@ getName = function () {
 ```
 1. 首先进入全局环境，变量、函数的声明都会提升，声明了两个函数 Foo（= 地址）、getName（= 地址）。
     这里要注意的是：
-    function getName 和 var getName 的声明是重复的声明，var getName 的声明会被忽略。这个在[JS深入系列 - 提升](https://github.com/cxh0224/blog/issues/9)有讲哦。
+    function getName 和 var getName 的声明是重复的声明，var getName 的声明会被忽略。这个在[重学 JS 系列 - 提升](https://github.com/cxh0224/blog/issues/9)有讲哦。
 2. 自上而下执行代码：跳过 Foo 和 getName 的函数声明
     - 执行 Foo.getName ------------------> 这里是将 Foo 当作一个对象，给这个对象添加了一个函数：f -> 2
     - 执行 Foo.prototype.getName --------> 是在 Foo 的原型上加了一个共享的函数： f -> 3
@@ -227,7 +227,7 @@ Part 2 部分代码执行过程如图所示：
 
 
 # 结束
-**重学 JS 系列** 预计 25 篇左右，这是一个旨在帮助大家，其实也是帮助我自己捋顺 JavaScript 底层知识的系列。主要包括变量和类型、执行上下文、作用域及闭包、原型和继承、异步和性能四个部分，将重点讲解如执行上下文、作用域、闭包、this、call、apply、bind、原型、继承、Event-loop、宏任务和微任务等比较难懂的部分。让我们一起拥抱整个 JavaScript 吧。
+***重学 JS 系列*** 预计 25 篇左右，这是一个旨在帮助大家，其实也是帮助我自己捋顺 JavaScript 底层知识的系列。主要包括变量和类型、执行上下文、作用域及闭包、原型和继承、异步和性能四个部分，将重点讲解如执行上下文、作用域、闭包、this、call、apply、bind、原型、继承、Event-loop、宏任务和微任务等比较难懂的部分。让我们一起拥抱整个 JavaScript 吧。
 
 大家或有疑问、或指正、或鼓励、或感谢，尽管留言回复哈！非常欢迎 star 哦！
 

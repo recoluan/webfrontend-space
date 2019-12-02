@@ -14,7 +14,7 @@ var person = new Person();
 ```
 
 # 执行机制
-还记得在[《JS深入系列 - 函数是如何运行的》](https://github.com/cxh0224/blog/issues/16)中讲过，普通函数是如何执行的吗？
+还记得在[《重学 JS 系列 - 函数是如何运行的》](https://github.com/cxh0224/blog/issues/16)中讲过，普通函数是如何执行的吗？
 - 创建一个函数执行上下文，被压入执行上下文栈
 - 函数执行上下文初始化（三件事情）：
     + 创建活动对象 AO（初始化 arguments、形参赋值、变量和函数声明）
@@ -113,7 +113,7 @@ function Foo() {
 }
 ```
 1. 如果普通调用，执行 Foo()，this 是谁呢？
-    我们在[《JS深入系列 - this》](https://github.com/cxh0224/blog/issues/15)讲过，***当不带任何修饰参数调用一个普通函数时，this 默认指向 window***。因此，这里 return 返回的是 window 对象。
+    我们在[《重学 JS 系列 - this》](https://github.com/cxh0224/blog/issues/15)讲过，***当不带任何修饰参数调用一个普通函数时，this 默认指向 window***。因此，这里 return 返回的是 window 对象。
 
 2. 如果用 new 来调用，this 是 谁呢？
     执行 new Foo()，分为以下步骤：
@@ -125,7 +125,7 @@ function Foo() {
 
 
 # 结束
-**重学 JS 系列** 预计 25 篇左右，这是一个旨在帮助大家，其实也是帮助我自己捋顺 JavaScript 底层知识的系列。主要包括变量和类型、执行上下文、作用域及闭包、原型和继承、异步和性能四个部分，将重点讲解如执行上下文、作用域、闭包、this、call、apply、bind、原型、继承、Event-loop、宏任务和微任务等比较难懂的部分。让我们一起拥抱整个 JavaScript 吧。
+***重学 JS 系列*** 预计 25 篇左右，这是一个旨在帮助大家，其实也是帮助我自己捋顺 JavaScript 底层知识的系列。主要包括变量和类型、执行上下文、作用域及闭包、原型和继承、异步和性能四个部分，将重点讲解如执行上下文、作用域、闭包、this、call、apply、bind、原型、继承、Event-loop、宏任务和微任务等比较难懂的部分。让我们一起拥抱整个 JavaScript 吧。
 
 大家或有疑问、或指正、或鼓励、或感谢，尽管留言回复哈！非常欢迎 star 哦！
 
