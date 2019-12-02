@@ -9,7 +9,7 @@ Function instanceof Object // true
 Object 本身是构造函数，继承了 Function.prototype; Function 也是对象，继承了 Object.prototype。
 
 
-到底是先有 Object，还是先有 Function，这里就有一个***鸡和蛋***的问题。
+到底是先有 Object，还是先有 Function，这里就有一个 ***鸡和蛋*** 的问题。
 
 本篇将通过学习 Object.prototype、Function.prototype、Object 、Function 之间的关系，搞清楚为什么会出现鸡蛋问题。
 
