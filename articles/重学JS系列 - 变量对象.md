@@ -1,0 +1,158 @@
+# 写在前面
+在[《JS深入系列 - 理解执行上下文》](https://github.com/cxh0224/blog/issues/12)中讲到：
+
+对于每个执行上下文，都有三个重要属性：
+- 变量对象(Variable object，VO)
+- 作用域链(Scope chain)
+- this
+
+今天我们主要来讲一下变量对象的创建过程。
+
+# 什么是变量对象
+在 Dmitry Soshnikov 的 ECMAScript系列文章中，是这样定义的：
+>A variable object (VO) is a special object related with an execution context and which stores:
+>- variables (var, VariableDeclaration);
+>- function declarations (FunctionDeclaration, FD);
+>- and function parameters
+
+变量对象是一个存储`变量声明`、`函数声明`、`arguments`的特殊对象，是在执行上下文初始化的过程中创建的。
+
+可以用 ECMAScript 的对象来表示变量对象：
+
+```js
+VO = {};
+```
+变量对象 (VO) 是作为执行上下文的一个**属性**存在的：
+```js
+activeExecutionContext = {
+  VO: {
+    // 上下文中的数据 (变量声明（var）, 函数声明（FD), 函数形参（function arguments）)
+  }
+};
+```
+
+# 不同执行上下文中的变量对象
+不同的执行上下文对应的变量对象是不同的。
+
+```js
+AbstractVO (变量实例化过程中的通用行为)
+ 
+  ║
+  ╠══> GlobalContextVO
+  ║        (VO === this === global)
+  ║
+  ╚══> FunctionContextVO
+           (VO === AO, <arguments> object and <parameters> are added)
+```
+
+
+## 全局上下文中的变量对象
+还记得高程中的 Global 全局对象吗？它是一个兜底对象，所有在全局作用域中定义的变量和函数，都是 Global 对象的属性。
+
+Global 对象创建时，Math、String、Date、parseInt 等属性也会同时被初始化，同样，也可以附加其它对象作为属性。
+
+在BOM中，全局对象上的 window 属性就指向了全局对象自身，，访问 window 就是访问 global。
+```js
+global = {
+  Math: <...>,
+  String: <...>
+  ...
+  ...
+  window: global
+};
+```
+ECMAScript指出，全局对象是不可以直接访问的，但可以通过全局上下文中的 this 或 window 属性来访问。
+```js
+var a = 10;
+var b = 20;
+
+console.log(window.a); // global.window.a = 10 === global.a = 10;
+console.log(this.b); // global.b = 20;
+```
+
+说了这么多，其实：
+> 全局上下文中的变量对象就是 Global 全局对象自身呐！
+
+
+## 函数上下文中的变量对象
+在函数上下文中，是不能直接访问变量对象(VO)的，此时**活动对象(Activation Object，简称 AO)**扮演着 VO 的角色。
+
+```js
+VO === AO + arguments + function parameters ;
+```
+
+1. AO 初始化时，包含以下**3个属性**：
+- 内置的只有一个 `arguments 属性`，它的值是 **Arguments 对象**。
+```js
+AO = {
+  arguments: <...>,
+};
+```
+
+这里要注意：
+Arguments 对象是一个**实参集合**，AO 初始化的过程中，Arguments 对象和形参之间会建立映射机制，完成形参赋值。
+
+- `变量的声明`（var 声明，值为undefined）
+
+- `函数的声明`（function，值为reference）
+reference是一个指向堆内存中函数对象的指针。
+
+2. VO 与 AO 的关系
+AO 实际上是包含了 VO 的。因为除了 VO 之外，AO 还包含函数的 parameters 和 arguments 这个特殊对象。
+
+
+# 例子
+不管是全局上下文还是函数上下文，一个执行上下文都要经历从创建到执行。这两个不同的阶段，变量对象做了哪些修改呢？
+
+我们通过一个例子来看一下：
+
+```js
+function test(a, b) {
+  var c = 10;
+  function d() {}
+  var e = function () { }
+  (function x() {});
+}
+ 
+test(10); // call
+```
+当进入test执行环境时，创建函数执行上下文，对应的变量对象是：
+```js
+AO = {
+    arguments: {
+        0: 10,
+        length: 1
+    },
+    a: 10,
+    b: undefined,
+    c: undefined,
+    d: <reference to function c(){}>,
+    e: undefined
+}
+```
+注意几点：
+1. arguments只有一个10，在和 形参 a、b之间建立映射时：a = 10 , b 没有值，因此为undefined。
+2. 括号包function x() {} 不是一个函数声明，而是一个值，因此，AO 不包含 x。
+3. 另外，e 的值是 undefined，因为右边函数表达式的值是在执行阶段才附上的。
+
+当代码执行时，这时候的 AO 是：
+```js
+AO = {
+    // ...
+    b: undefined,
+    c: 10,
+    d: <reference to function c(){}>,
+    e: <reference to function e(){}>
+}
+```
+
+# 参考链接
+- [JavaScript深入之变量对象](https://github.com/mqyqingfeng/Blog/issues/5)
+- [ECMA-262-3 in detail. Chapter 2. Variable object.](http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/)
+
+# 结束
+**JS深入系列**预计20篇左右，这是一个旨在帮助大家，其实也是帮助我自己捋顺JavaScript底层知识的系列。主要包括变量和数据类型、作用域及闭包、原型和继承、异步和性能四个部分，将重点讲解如作用域、闭包、this、call、apply、bind、原型、类型检测、继承、异步等等JS语言中的比较难懂的部分。让我们一起拥抱整个JavaScript吧。
+
+大家或有疑问或指正或鼓励或感谢，尽管留言回复哈！非常欢迎你来star哦！
+
+[点击返回博客主页](https://github.com/cxh0224/blog)

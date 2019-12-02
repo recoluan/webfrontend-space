@@ -1,0 +1,252 @@
+# 写在前面
+***JavaScript 是一种基于原型的语言 (prototype-based language)***，这个和 Java 等基于类的语言不一样。
+
+本篇我们将要探讨的是：原型和原型链。
+
+# 理解原型对象
+## 当我们定义了一个函数之后
+```js
+function Person(name) {
+    this.name = name;
+}
+```
+上边的代码创建了一个函数 Person，看看发生了什么
+- 每个函数都有一个 ***prototype 属性***，这个属性是一个指针，指向该函数的***原型对象***。
+- 默认的，所有的原型对象都默认有一个 ***constructor（构造函数）属性***，这个属性又指回该函数。
+
+用代码来表示就是：
+```js
+typeof (Person.prototype) === "object";// true
+Person.prototype.constructor === Person;// true
+```
+
+用图表示就是：
+![prototype1](https://user-images.githubusercontent.com/22387652/61991961-5d5f1a80-b08a-11e9-9307-8165d1087dd3.png)
+
+
+## 用 new 来调用函数，创建一个对象
+我们用 new 来构造调用了函数 Person，创建了一个对象 person：
+```js
+function Person(name) {
+    this.name = name;
+}
+var person = new Person("chen");
+```
+
+我们创建的对象实例（除了 null）都有一个***隐藏属性 [[prototype]]***，这个属性指向 Person 的原型对象。[[prototype]] 是一个***内部属性 ，不可访问，***但多数浏览器都***支持访问\__proto__属性***（是两个下划线哦！！！）
+
+
+用代码表示就是：
+```js
+person.__proto__; // {constructor:ƒ Person(name)}
+person.__proto__ === Person.prototype; // true
+```
+用图表示就是：
+![prototype2](https://user-images.githubusercontent.com/22387652/62426100-1b317b00-b713-11e9-8d78-fde8861089be.png)
+
+
+# 原型链
+在上面的栗子中，我们展示了实例 person 和它的原型对象 Person.prototype 的关系，我们顺着 Person.prototype 向上追溯，顶端到底指向什么呢？？？
+
+## Object.prototype
+Person.prototype 也是一个对象，我们知道，所有的对象都是 Object 的实例，因此，原型对象也是通过 Object 构造函数创建的。
+
+结合上面讲的，实例的 __proto__ 指向构造函数的 prototype 。于是，我们再更新下关系图：
+
+![prototype3](https://user-images.githubusercontent.com/22387652/62426107-33a19580-b713-11e9-88a6-af9c35b50360.png)
+
+我们创建的所有的对象实例，默认最终都会指向 Object.prototype。
+
+这也就是为什么我们没有定义 hasOwnProperty()、toString() 、isProtototypeOf()等方法，而创建的每个对象却都能调用它们的真正原因。
+
+
+
+## null
+那么，Object.prototype 再往上找呢？是 null。
+
+用代码证明如下：
+```js
+Object.prototype.__proto__ === null; // true
+```
+那么，null 究竟代表什么呢？
+
+引用阮一峰老师的[《undefined与null的区别》](http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html)就是：
+> null 表示“没有对象”，即该处不应该有值。
+
+其实，也就是说 Object.prototype 没有原型的意思。
+
+到现在，我们的原型链就很清楚啦，也就是图中那条红色的线。
+```
+person - - - > Person.prototype - - - > Object.prototype 
+```
+
+ lalala，我们愉快的给它下个定义吧。
+
+> 由一个对象实例，沿着 `__proto__ 线`，一直向上查找，直至找到 Object.prototype，形成的一个`对象链`就是**原型链**。
+原型链的顶端是 Object.prototype，最终指向 null。
+
+
+
+## 基于原型链的查找机制
+当我们需要访问对象的某个属性时，会执行一次查找操作，首先从对象实例开始，如果在对象实例中没有找到该属性，就会沿着原型链继续向上查找，找到了就立刻停止，否则会一直向上。***这就是基于原型链的搜索机制。***
+
+比如，在上面的原型链中：
+1）如果访问 person.name，在 person 中就可以找到，搜索过程停止。
+2）如果访问 person.sayName，会经历以下步骤：
+```js
+// person.sayName
+-- person // not found
+-- Person.prototype // not found
+-- Object.prototype // not found => 停止
+```
+
+这里要说两个概念：
+- 在 Person 构造函数中，通过 `this` 定义的属性和方法都是***实例属性***。每个实例都有自己的一份实例属性。
+- 而在原型对象中定义的属性和方法是***共享属性***，所有的对象实例都可访问，并且都是基于原型链的查找机制*间接访问*的。
+
+
+检测实例属性、还是共享属性，有几个 API 需要了解一下：
+- in：检测当前对象是否存在某个属性（不管是实例属性，还是共享属性，只要有就返回true）
+- hasOwnProperty：检测这个属性是否是实例属性
+- isPrototypeOf：检测一个对象实例是否是这个原型的类创建的。
+
+我们看代码：
+```js
+'name' in person; //=>true
+person.hasOwnProperty('name'); //=>true
+Fn.prototype.isPrototypeOf(person); //=>true
+!person.hasOwnproperty('name')  && 'name' in person; //=> 检测当前属性是否为对象的共享属性 
+```
+
+
+
+# 重写原型对象
+> 概念：就是改写构造函数的原型，使它指向一个新的对象。
+
+这样存在问题：
+- 这个新的对象自身是***不具备 constructor 属性的***，只有构造函数**默认的**原型对象才有。
+- 浏览器默认的原型对象，如果没有被占用，就会被释放掉。
+
+
+代码示例如下：
+```js
+function Person(name) {
+    this.name = name;
+}
+Person.prototype = {
+    sayName: function() {
+        console.log(this.name);
+    }
+};
+var person = new Person("chen");
+person.sayName(); // chen
+```
+以上代码用图表示就是：
+![prototype4](https://user-images.githubusercontent.com/22387652/62426405-0a830400-b717-11e9-8163-9a4d4cb9d05a.png)
+
+我们会发现，Person 函数的原型被一个新对象重写之后：
+这个新的对象并不具备 constructor 属性，但是我们打印 Person.prototype.constructor 却输出 Object，这是为什么呢？
+
+因为 Person.prototype 沿着 __proto__ 链向上查找，到它的原型 Object.prototype（具有 constructor 属性）停止。 这是基于原型链的查找机制完成的。
+
+用代码证明如下：
+```js
+Person.prototype.constructor === Person;// false
+Person.prototype.constructor === Object;// true
+```
+
+
+> 其实，person 是一个对象实例，它不具有 constructor 属性，也是基于原型链的查找机制完成的。
+
+用代码证明如下：
+```js
+person.constructor === Person;// true
+"constructor" in person;// true
+person.hasOwnProperty("constructor");// false
+```
+
+
+如果 constructor 的指向很重要，我们可以手动改变这个新对象的 constructor 的指向。
+```js
+Person.prototype = {
+    constructor: Person,
+    sayName: function() {
+        console.log(this.name);
+    }
+};
+```
+然而，这个操作并不会影响原型链，这货到底有什么用处，目前真没发现。
+
+
+
+# 必刷题
+```js
+function Fn() {
+    this.x = 100;
+    this.y = 200;
+    this.getX = function () {
+        console.log(this.x);
+    }
+}
+
+Fn.prototype.getX = function () {
+    console.log(this.x);
+};
+Fn.prototype.getY = function () {
+    console.log(this.y);
+};
+var f1 = new Fn;
+var f2 = new Fn;
+console.log(f1.getX === f2.getX);
+console.log(f1.getY === f2.getY);
+console.log(f1.__proto__.getY === Fn.prototype.getY);
+console.log(f1.__proto__.getX === f2.getX);
+console.log(f1.getX === Fn.prototype.getX);
+console.log(f1.constructor);
+console.log(Fn.prototype.__proto__.constructor);
+f1.getX();
+f1.__proto__.getX();
+f2.getY();
+Fn.prototype.getY();
+```
+<details><summary><b>答案是：</b></summary>
+<p>
+
+```js
+false
+true
+true
+false
+false
+/*ƒ Fn() {
+    this.x = 100;
+    this.y = 200;
+    this.getX = function () {
+        console.log(this.x);
+    }
+}*/
+ƒ Object() { [native code] }
+100
+undefined
+200
+undefined
+```
+
+</p>
+</details>
+
+
+
+
+# 参考
+- 《JavaScript高级程序设计（第3版）》
+- [JavaScript深入之从原型到原型链](https://github.com/mqyqingfeng/Blog/issues/2)
+
+
+# 结束
+**重学 JS 系列** 预计 25 篇左右，这是一个旨在帮助大家，其实也是帮助我自己捋顺 JavaScript 底层知识的系列。主要包括变量和类型、执行上下文、作用域及闭包、原型和继承、异步和性能四个部分，将重点讲解如执行上下文、作用域、闭包、this、call、apply、bind、原型、继承、Event-loop、宏任务和微任务等比较难懂的部分。让我们一起拥抱整个 JavaScript 吧。
+
+大家或有疑问、或指正、或鼓励、或感谢，尽管留言回复哈！非常欢迎 star 哦！
+
+[点击返回博客主页](https://github.com/cxh0224/blog)
+

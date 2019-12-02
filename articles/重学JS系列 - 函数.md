@@ -1,0 +1,195 @@
+# 语法
+每个函数都是 Function 类型的实例，像其它引用类型一样拥有属性和方法。函数也是一个对象，而函数名实际上是一个指向函数对象的指针。
+
+常见的几种语法：
+
+1. 声明式语法
+    ```js
+    function sum(a, b) {
+        return a + b;
+    }
+    ```
+
+2. 函数表达式语法
+    ```js
+    var sum = function(a, b) {
+        return a + b;
+    }
+    ```
+
+3. Function构造函数语法（不常见）
+    ```js
+    var sum = New Function('a', 'b');
+    ```
+
+# 形参和实参
+- 形参：函数的`入口`
+- 实参：给形参传递的`具体值`，即使传入的是变量或表达式，也会**先计算出表达式的值**再传递。
+
+## arguments
+1. arguments：函数内置的`实参集合`
+    - 是一个**类数组对象**，（不是数组，不可以用数组中的方法）
+    - 即使设置形参变量，**不管形参设置了多少个，arguments存储的都是所有的实参**
+
+    栗子：
+    ```js
+    function sum(n,m){
+        console.log(arguments);//10 20 30 length:3
+    }
+    sum(10,20,30);
+    ```
+    arguments的结构如图所示：
+    ![1524227827666](https://user-images.githubusercontent.com/22387652/56402500-1a71f780-6290-11e9-9985-630ddefbfd01.png)
+
+
+2. arguments的属性
+    - arguments.callee函数本身
+    - **arguments.callee.caller**当前函数在哪执行的，caller就是谁（记录的是**它执行的宿主环境**），`在全局下执行caller的结果是null`
+
+    ```js
+    var a = 12;
+    function foo() {
+        console.log(arguments.callee.caller);//=>bar
+    }
+    function bar() {
+        var a = 13;
+        foo();
+    }
+    bar();
+    ```
+
+## 形参赋值
+什么是形参赋值？
+>就是实参按照形参的顺序，把对应的值传递给形参，进行填坑。
+
+在 JS 的`非严格模式`下，形参填坑存在这样一种映射机制：
+>- 以`实参的个数`（arguments 的项数）基础
+>- arguments 和形参之间的映射，建立在`函数执行后执行上下文初始化的一瞬间`
+此时能建立映射机制的建立映射机制，不能建立多出来的形参值为 `undefined`，以后不管怎样操作，都无法和 arguments 对应的索引建立映射。
+
+
+我们来看一个栗子：
+```js
+function fn(x, y) {
+    /*
+     * 形参：
+     *   x=10
+     *   y=undefined y也是私有变量,不是没赋值,而是赋值为undefined
+     *
+     * arguments
+     *  0:10
+     *  length:1
+     */
+    arguments[0] = 100;
+    console.log(x);//=>100
+    y = 200;
+    console.log(arguments[1]);//=>undefined
+}
+fn(10);
+```
+在上边的栗子中，当 fn 执行时，形成一个 fn 的执行上下文，形参是 x、y，arguments 只有一个 10，接下来首先进行形参赋值，将 10 赋给 x，在形参赋值的这一瞬间，x 与 arguments[0] 建立映射机制，这两个值就关联了起来。而 y 没有与 arguments 对应的索引建立映射，值为 undefined，即使之后给 y 赋值 200，仅仅是修改了 y 的值。
+
+**思考题**
+```js
+function fn(x, y) {
+    arguments[1] = 300;
+    /*
+     * arguments
+     *  0:10,
+     *  1:300,
+     *  length:2
+     */
+    console.log(y);
+    y = 400;
+    console.log(arguments[1]);
+}
+fn(10);
+```
+答案是：undefined、300
+
+
+# return
+返回值：函数的`出口`，把函数执行的结果拿到函数外面去使用。
+
+1. **return 返回的永远是一个`值`。**
+    如果当前函数没有 return 结果出来（或者 return;），函数执行在外面拿到的结果都是 **`undefined`**。
+
+    栗子：
+    ```js
+    function fn(n,m){
+        var total = 0;
+        total = n + m;
+    }
+    var res = fn(10,20);
+    console.log(res); //=>undefined
+    ```
+    注意：
+    fn：代表的是函数本身
+    fn(10,20)：代表的是`函数执行`，还可代表`函数执行后返回的结果`（return返回的值）
+
+    **思考题**
+    ```js
+    function fn(n,m){
+        var total = 0;
+        total= n + m;
+        return total;
+    }
+    var res = fn(10); //=>10+undefined
+    console.log(res); //=>NaN
+    ```
+
+2. **return; 的作用**
+    类似于循环中的 break，**强制结束函数体中代码的执行**，return; 后面的代码不再执行。
+
+    **思考题**
+    ```js
+    function fn(n, m) {
+        if (n === undefined || m === undefined) {
+            return 0;
+        }
+        var total = 0;
+        total = n + m;
+        return total;
+    }
+
+    var res = fn(10);
+    console.log(res);//0
+    ```
+
+# this
+this是一个非常有魔力的对象，它在函数执行时被自动定义在函数内部。this到底指向谁？在函数调用时它被绑定到了哪个对象？
+这些问题将在[JS深入系列 - this](https://github.com/cxh0224/blog)进行详细讲解。
+
+
+# call / apply / bind
+这三个方法都是存在于 Function.prototype 上的，几乎所有的函数都可以调用。常见的用法就是改变函数内部的 this 绑定。
+在后续的文章中将展开详细的讨论。
+
+
+# 匿名函数
+出现的场景：
+1. 函数表达式
+    匿名函数在这里，是作为一个值赋值给变量的。
+
+2. 自执行函数
+    创建和执行一起完成的。
+    可以前边加一个\~、+、！
+
+
+注意：匿名函数起的名字只能在函数内部使用
+```js
+var fn = function sum(){
+    console.log(1,sum);//=>sum是函数本身
+}
+fn();
+sum();// Uncaught ReferenceError: sum is not defined
+```
+
+
+
+# 结束
+**重学 JS 系列** 预计 25 篇左右，这是一个旨在帮助大家，其实也是帮助我自己捋顺 JavaScript 底层知识的系列。主要包括变量和类型、执行上下文、作用域及闭包、原型和继承、异步和性能四个部分，将重点讲解如执行上下文、作用域、闭包、this、call、apply、bind、原型、继承、Event-loop、宏任务和微任务等比较难懂的部分。让我们一起拥抱整个 JavaScript 吧。
+
+大家或有疑问、或指正、或鼓励、或感谢，尽管留言回复哈！非常欢迎 star 哦！
+
+[点击返回博客主页](https://github.com/cxh0224/blog)
