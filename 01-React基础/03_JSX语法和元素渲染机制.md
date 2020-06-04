@@ -62,9 +62,9 @@ style属性值必须是对象（不能是样式字符串）
 class用className代替
 
 
-# 渲染
+# JSX渲染机制
 目的：把JSX（虚拟DOM）变为真实的DOM。
-JSX渲染机制：
+
 1. 第一步，基于babel中的语法解析模块（babel-preset-react）把JSX语法编译为React.createElement(...)
 babel是一个强大的正则解析库。
 
