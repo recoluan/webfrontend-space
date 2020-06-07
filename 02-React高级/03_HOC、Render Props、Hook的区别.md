@@ -188,7 +188,7 @@ const useMouse = () => {
 - 缺点
   + 当存在多个 HOC 时，无法清晰地标识 props 的来源
   + 同名 props 覆盖：相同名称的 props，则存在覆盖问题，并不会报错
-  + 多层嵌套：HOC 可能出现多层包裹组件的情况，加深组件层级
+  + 多层嵌套：HOC 可能出现多层包裹组件的情况，加深组件层级，不利于调试
 
 2. Render Props
 - 优点
@@ -208,6 +208,7 @@ const useMouse = () => {
 
 # 参考文档
 - [React Hooks 你真的用对了吗？](https://zhuanlan.zhihu.com/p/85969406)
+- [React拾遗：Render Props及其使用场景](https://juejin.im/post/5b2f99ea6fb9a00e3a5aa511#heading-3)
 
 
 

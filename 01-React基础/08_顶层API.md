@@ -50,3 +50,12 @@ Fragment 允许包裹一个子元素列表，而**无需向 DOM 添加额外节�
 ```
 在列表循环中，支持 key 属性。
 简短的语法: <> </>
+
+
+
+
+# 面试高频题目
+1. 对 React.memo 的理解 *
+考 React.memo, 三个场景
+
+讲讲React.memo 和 JS 的 memorize 函数的区别(memorize函数当时不知道，以为是什么高深的算法，后来才发现就是cache函数)
