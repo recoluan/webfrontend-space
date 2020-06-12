@@ -78,3 +78,4 @@ class Page extends React.Component {
 
 # 面试高频题目
 1. 组件之间通信方式 *
+2. Context 是什么，有何用途？
