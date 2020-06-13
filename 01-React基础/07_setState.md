@@ -24,6 +24,7 @@
 this.state.name = 'Hello';
 ```
 
+
 ### State 的更新可能是异步的
 基于性能考量，`React 并不会保证 state 的变更会立即生效`，也就是说会有一个`延迟`。
 
@@ -110,7 +111,32 @@ add = () => {
 
 2. setState 是同步还是异步？*
 
+3. 场景题
+```js
+class App extends React.Component {
+  state = { val: 0 }
 
+  componentDidMount() {
+    this.setState({ val: this.state.val + 1 })
+    console.log(this.state.val)
+
+    this.setState({ val: this.state.val + 1 })
+    console.log(this.state.val)
+
+    setTimeout(_ => {
+      this.setState({ val: this.state.val + 1 })
+      console.log(this.state.val);
+
+      this.setState({ val: this.state.val + 1 })
+      console.log(this.state.val)
+    }, 0)
+  }
+
+  render() {
+    return <div>{this.state.val}</div>
+  }
+}
+```
 
 *****************
 如果直接 setState 修改数据，状态数据改变后，执行 render 和 DidMount（`最新的state值`）。有一个小坑：`this.setState 本身就是异步的，会通知执行 render，WillMount 中 this.state 的值还是原来的`。

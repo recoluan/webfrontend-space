@@ -59,6 +59,9 @@ react使用JSX语法
 vue的beforeMount对应react的componentWillMount
 vue的mounted对应react的componentDIdMount
 react更新的那套钩子函数做了更精细的控制，可以用should来控制是否update
+- 事件机制：
+Vue 的 event 是原生的，事件被挂载到当前元素上，和 原生 DOM 事件一样。
+React 的不是原生的，是合成事件对象，事件被挂载到 document 上。
 
 2. 怎么理解react
 
