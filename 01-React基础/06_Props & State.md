@@ -83,7 +83,7 @@ onChangeIndex = (id, index) => {
 }
 // 追加
 // tasks.concat(100)
-// [tasks, 100] 
+// [...tasks, 100] 
 ```
 
 >对象：
