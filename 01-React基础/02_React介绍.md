@@ -50,15 +50,21 @@ UI各个部分被封装成小组件，小组件再组合成大组件，整个web
 
 # 面试高频题目
 1. React 和 Vue 的区别？共通之处？
-- MVC（单向数据流）    MVVM（双向数据流）
-- vue底层使用Object.defineProperty来实现双向数据绑定
-react不是，但可以change事件来模拟实现
-- template（迎合HTML，利于项目重构）
-react使用JSX语法
+- MVC（单向数据流）   MVVM（双向数据流）
+
+- vue 底层使用 Object.defineProperty 来实现双向数据绑定
+react 不是，但可以 change 事件来模拟实现
+
+- vue 使用 template（迎合 HTML，利于项目重构）
+react 使用 JSX语法
+
 - 钩子函数
-vue的beforeMount对应react的componentWillMount
-vue的mounted对应react的componentDIdMount
-react更新的那套钩子函数做了更精细的控制，可以用should来控制是否update
+vue 的 beforeMount 对应 react 的 componentWillMount
+vue 的 mounted 对应 react 的 componentDIdMount
+vue 的 beforeUpdate 对应 react 的 componentWillUnmount
+
+react 更新的那套钩子函数做了更精细的控制，可以用 should 来控制是否 update
+
 - 事件机制：
 Vue 的 event 是原生的，事件被挂载到当前元素上，和 原生 DOM 事件一样。
 React 的不是原生的，是合成事件对象，事件被挂载到 document 上。

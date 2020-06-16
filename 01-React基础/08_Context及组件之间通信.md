@@ -2,22 +2,13 @@
 
 [TOC]
 
+# Context
+>Context 提供了一种在组件树之间**跨层级传递“全局”的数据的方式**，而不必显示的为每层组件手动添加 props。
 
-# 组件之间通信
-## 父子组件
+比如当前用户信息、主题色或首选语言的全局共享
 
-父 通过 Props 传给 子，子 通过调用 父 传来的函数 修改父组件的数据，相当于向 父 传递。
-特点：典型的单向数据流，只能父传子，不能子传父
+**主要解决逐层传递 props 太过繁琐的问题**。
 
-
-## 兄弟组件（平行组件）
-平行组件：兄弟组件或毫无关系的两个组件。
-
-让两个兄弟组件有一个共同的父组件，一个兄弟组件把 父 传过来的函数执行，修改 父 中的数据，这样另一个 兄弟组件的数据也就改变了。
-
-
-## 跨层级组件（传给所有后代）
-Context 可以让我们无须明确地传遍每一个组件，就能将值深入传递进组件树
 ```js
 // 1. 使用 React.createContext(defaultValue)，创建一个 Context 对象。
 const MyContext = React.createContext();
@@ -46,13 +37,13 @@ function AppLayout() {
 }
 
 class Page extends React.Component {
-  // 使用：1. 指定 contextType 读取当前的 Context 对象
+  // 使用：1. 指定 contextType 读取当前最近的 Context 对象
   // static contextType = MyContext;
   // render() {
   //   return <XXXComponent user={this.context} />;
   // }
 
-  // // 使用：2. Context.Consumer
+  // // 使用：2. Context.Consumer，多用于函数组件中，因为无法获取 this.context
   // render () {
   //   return (
   //     <MyContext.Consumer>
@@ -69,6 +60,22 @@ class Page extends React.Component {
   }
 }
 ```
+
+
+# 组件之间通信
+## 父子组件
+
+父 通过 Props 传给 子，子 通过调用 父 传来的函数 修改父组件的数据，相当于向 父 传递。
+特点：典型的单向数据流，只能父传子，不能子传父
+
+
+## 兄弟组件（平行组件）
+平行组件：兄弟组件或毫无关系的两个组件。
+
+让两个兄弟组件有一个共同的父组件，一个兄弟组件把 父 传过来的函数执行，修改 父 中的数据，这样另一个 兄弟组件的数据也就改变了。
+
+
+## 跨层级组件（传给所有后代）
 
 特点：一旦父组件设置了上下文信息，它的后代组件都可以直接拿来用，不需要一层层传递。
 
