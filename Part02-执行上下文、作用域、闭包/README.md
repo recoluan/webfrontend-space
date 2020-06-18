@@ -6,7 +6,7 @@
 # 更新进度
 目前，重学 JS 系列正在发布中，已更新到 **Part 4 异步和性能**。
 
-# 重学 JS 系列 目录
+# 重学 JS 系列目录
 ### Part1 变量和类型
 1. [重学 JS 系列 - 从堆、栈、内存机制开始](https://github.com/cxh0224/blog/blob/master/articles/%E9%87%8D%E5%AD%A6JS%E7%B3%BB%E5%88%97%20-%20%E4%BB%8E%E5%A0%86%E3%80%81%E6%A0%88%E3%80%81%E5%86%85%E5%AD%98%E6%9C%BA%E5%88%B6%E5%BC%80%E5%A7%8B.md)
 2. [重学 JS 系列 - 变量及数据类型](https://github.com/cxh0224/blog/blob/master/articles/%E9%87%8D%E5%AD%A6JS%E7%B3%BB%E5%88%97%20-%20%E5%8F%98%E9%87%8F%E5%8F%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md)
