@@ -30,6 +30,7 @@ function areEqual(prevProps, nextProps) {
 export default React.memo(MyComponent, areEqual);
 ```
 
+
 # Fragments
 ## React.Fragment
 Fragment 允许包裹一个子元素列表，而**无需向 DOM 添加额外节点**。

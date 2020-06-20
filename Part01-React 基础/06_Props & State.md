@@ -50,6 +50,7 @@ state 是组件的`内部状态数据`，在 constructor 中初始化，可以�
 
 因为数组、对象是一个引用，**React 执行 diff 算法时比较的是引用的地址，而不是两个对象**。所以直接修改原对象，引用值不发生改变的话，React 不会重新渲染。
 
+## 数组
 >数组：
 一般不使用 push()、pop() 直接操作原数组
 可以使用 slice() 深克隆一个新数组，或者 concat()、filter()、map() 返回一个新数组。 
@@ -85,7 +86,7 @@ onChangeIndex = (id, index) => {
 // tasks.concat(100)
 // [...tasks, 100] 
 ```
-
+## 对象
 >对象：
 一般使用扩展运算符（...），或者 Object.assign()
 ```js
