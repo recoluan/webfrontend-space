@@ -3,40 +3,33 @@
 [TOC]
 
 # 栗子
-我们从一个栗子开始吧，写一个组件来跟踪鼠标的位置：
+我们从一个栗子开始吧，写一个组件来跟踪鼠标位置的组件：
 ```js
 class MouseTracker extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      x: 0,
-      y: 0
-    };
+    this.state = { x: 0, y: 0 };
   }
 
-  onMouseMove = event => {
-    this.setState({
-      x: event.clientX,
-      y: event.clientY
+  componentDidMount() {
+    document.addEventListener("mousemove", event => {
+      this.setState({
+        x: event.clientX,
+        y: event.clientY,
+      });
     });
-  };
+  }
 
   render() {
     return (
-      <div
-        style={{ height: "100px", background: "pink" }}
-        onMouseMove={this.onMouseMove}
-      >
-        <h1>移动鼠标!</h1>
-        <p>
-          当前的鼠标位置是 ({this.state.x}, {this.state.y})
-        </p>
+      <div>
+        当前的鼠标位置是 ({this.state.x}, {this.state.y})
       </div>
     );
   }
 }
 ```
-当光标在屏幕上移动时，组件在 \<p> 中显示其（x，y）坐标。
+当光标在屏幕上移动时，显示其（x，y）坐标。
 
 现在的问题是：我们如何在另一个组件中复用这个行为？换个说法，若另一个组件需要知道鼠标位置，我们能否封装这一行为?
 
@@ -46,22 +39,15 @@ class MouseTracker extends React.Component {
 ```js
 import withMouse from "./withMouse";
 
-@withMouse
-class MouseTracker extends React.Component {
-  render() {
-    return (
-      <div
-        style={{ height: "100px", background: "pink" }}
-        onMouseMove={this.props.onMouseMove}
-      >
-        <h1>移动鼠标!</h1>
-        <p>
-          当前的鼠标位置是 ({this.props.x}, {this.props.y})
-        </p>
-      </div>
-    );
-  }
-}
+const MouseTracker = props => {
+  return (
+    <div>
+      当前的鼠标位置是 ({props.x}, {props.y})
+    </div>
+  );
+};
+
+export default withMouse(HocMouseTracker);
 ```
 
 ```js
@@ -72,22 +58,18 @@ const withMouse = WrappedComponent => {
       this.state = { x: 0, y: 0 };
     }
 
-    onMouseMove = event => {
-      this.setState({
-        x: event.clientX,
-        y: event.clientY
+    componentDidMount() {
+      document.addEventListener("mousemove", event => {
+        this.setState({
+          x: event.clientX,
+          y: event.clientY
+        });
       });
-    };
+    }
 
     render() {
       // HOC 将鼠标位置信息 this.state，以 prop 的形式，传递给 WrappedComponent
-      const newProps = {
-        ...this.props,
-        ...this.state,
-        onMouseMove: this.onMouseMove
-      };
-
-      return <WrappedComponent {...newProps} />;
+      return <WrappedComponent {...this.props} {...this.state} />;
     }
   };
 };
@@ -97,25 +79,17 @@ const withMouse = WrappedComponent => {
 2. **使用 Render Props 实现**
 
 ```js
-class MouseTracker extends React.Component {
-  render() {
-    return (
-      <Mouse>
-        {mouse => (
-          <div
-            style={{ height: "100px", background: "pink" }}
-            onMouseMove={mouse.onMouseMove}
-          >
-            <h1>移动鼠标!</h1>
-            <p>
-              当前的鼠标位置是 ({mouse.x}, {mouse.y})
-            </p>
-          </div>
-        )}
-      </Mouse>
-    );
-  }
-}
+const MouseTracker = props => {
+  return (
+    <Mouse>
+      {({ x, y }) => (
+        <div>
+          当前的鼠标位置是 ({x}, {y})
+        </div>
+      )}
+    </Mouse>
+  );
+};
 ```
 这里渲染一个 Mouse 组件，这个组件接受一个 Render Props，这个 props 是一个函数，当这个函数被调用时，会**将它的 state 暴露**给 MouseTracker 组件。
 
@@ -126,21 +100,18 @@ class Mouse extends React.Component {
     this.state = { x: 0, y: 0 };
   }
 
-  onMouseMove = event => {
-    this.setState({
-      x: event.clientX,
-      y: event.clientY
+  componentDidMount() {
+    document.addEventListener("mousemove", event => {
+      this.setState({
+        x: event.clientX,
+        y: event.clientY
+      });
     });
-  };
+  }
 
   render() {
-    const newState = {
-      ...this.state,
-      onMouseMove: this.onMouseMove
-    };
-
     // 使用 children prop 动态决定要渲染的内容
-    return <div>{this.props.children(newState)}</div>;
+    return <div>{this.props.children(this.state)}</div>;
   }
 }
 ```
@@ -149,23 +120,18 @@ class Mouse extends React.Component {
 ```js
 import useMouse from "./useMouse";
 
-const MouseTracker = () => {
-  const [mouse, setMouse] = useMouse();
+const HookMouseTracker = () => {
+  const mouse = useMouse();
 
   return (
-    <div style={{ height: "100px", background: "pink" }} onMouseMove={setMouse}>
-      <h1>移动鼠标!</h1>
-      <p>
-        当前的鼠标位置是 ({mouse.x}, {mouse.y})
-      </p>
+    <div>
+      当前的鼠标位置是 ({mouse.x}, {mouse.y})
     </div>
   );
 };
 ```
 自定义一个Hook：
 ```js
-import { useState } from "react";
-
 const useMouse = () => {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
@@ -175,7 +141,14 @@ const useMouse = () => {
     setY(e.clientY);
   };
 
-  return [{ x, y }, onMouseMove];
+  useEffect(() => {
+    document.addEventListener("mousemove", onMouseMove);
+    return () => {
+      document.removeEventListener("mousemove", onMouseMove);
+    };
+  });
+
+  return { x, y };
 };
 ```
 是不是非常的简洁呀 
@@ -191,7 +164,7 @@ const useMouse = () => {
   + 多层嵌套：HOC 可能出现多层包裹组件的情况，加深组件层级，不利于调试
 
 2. Render Props
-- 优点
+- 优点：代码简洁
 - 缺点
   + 无法在 return 外访问数据
   + Render Props 虽然没有组件多层嵌套的问题，但是转化为函数回调的嵌套

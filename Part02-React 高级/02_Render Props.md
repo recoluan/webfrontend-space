@@ -3,15 +3,18 @@
 [TOC]
 
 # 什么是 render prop ？
->术语 “render prop” 是指一种在 React 组件之间使用一个**值为函数的 prop** 共享代码的简单技术
+我们来看官方文档的解释：
+>- 术语 “render prop” 是指一种在 React 组件之间使用一个**值为函数的 prop** 共享代码的简单技术
+>- 具有 render prop 的组件，接受一个函数，该函数返回一个 React 元素。
+>- 更具体地说，**render prop 是一个用于告知组件需要渲染什么内容的函数 prop**。
 
-具有 render prop 的组件，接受一个函数，**该函数返回一个 React 元素**。
+
 ```js
 <DataProvider render={data => (
   <h1>Hello {data.target}</h1>
 )}/>
 ```
-更具体地说，**render prop 是一个用于告知组件需要渲染什么内容的函数 prop**。
+
 
 使用 render prop 的库有 React Router:
 ```js
@@ -19,7 +22,7 @@
 ```
 
 # children prop
-render prop 是因为模式才被称为 render prop ，你不一定要用名为 render 的 prop 来使用这种模式。事实上， 任何被用于告知组件需要渲染什么内容的函数 prop 在技术上都可以被称为 “render prop”.
+render prop 是因为模式才被称为 render prop ，属性名不一定要使用 render。
 
 **也可以简单地使用 children prop！**
 ```js
@@ -68,7 +71,3 @@ class MouseTracker extends React.Component {
 }
 ```
 
-
-
-
-# 面试高频题目

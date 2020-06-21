@@ -28,3 +28,6 @@ useReducer 可以解决你知道吗？
 讲讲React.memo 和 JS 的 memorize 函数的区别(memorize函数当时不知道，以为是什么高深的算法，后来才发现就是cache函数)
 
 
+
+# 需要再捋捋的知识点
+1. React.PureComponent React.memo useMemo
