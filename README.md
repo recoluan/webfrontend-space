@@ -23,10 +23,15 @@ useReducer 可以解决你知道吗？
 // 4. React 受控组件和非受控组件的区别
 
 5. 对 React.memo 的理解
-考React.memo, 三个场景
+考 React.memo, 三个场景
 
-讲讲React.memo 和 JS 的 memorize 函数的区别(memorize函数当时不知道，以为是什么高深的算法，后来才发现就是cache函数)
+讲讲 React.memo 和 JS 的 memorize 函数的区别(memorize函数当时不知道，以为是什么高深的算法，后来才发现就是cache函数)
 
+# Redux 面试的点
+
+1. 描述 redux 的单项数据流模型 *
+2. 异步 action *
+3. 中间件 *
 
 
 # 需要再捋捋的知识点
