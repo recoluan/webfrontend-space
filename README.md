@@ -25,7 +25,7 @@ useReducer 可以解决你知道吗？
 5. 对 React.memo 的理解
 考 React.memo, 三个场景
 
-讲讲 React.memo 和 JS 的 memorize 函数的区别(memorize函数当时不知道，以为是什么高深的算法，后来才发现就是cache函数)
+讲讲 React.memo 和 JS 的 memorize 函数的区别(memorize 函数当时不知道，以为是什么高深的算法，后来才发现就是 cache 函数)
 
 # Redux 面试的点
 
