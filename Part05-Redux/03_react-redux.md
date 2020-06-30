@@ -75,7 +75,8 @@ class Provider extends React.Component {
 
 # connect
 ## API 使用
-connect：高阶组件，连接 React 组件与 Redux store。
+connect: 连接 React 组件与 Redux store。把 store 中的数据挂载到当前组件中。
+
 
 语法：
 > connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])([自己创建的组件])
@@ -111,7 +112,66 @@ export default connect(mapStateToProps, mapDispatchToProps)([自己创建的组�
 
 
 ## connect 原理
+> connect(mapStateToProps, mapDispatchToProps)(WrappedComponent)
 
+**connect 是一个返回高阶组件的高阶函数！高阶函数执行返回已经连接 Redux store 的组件。**
+
+```js
+/*
+* 1. connect(mapStateToProps, mapDispatchToProps)
+*   @params：mapStateToPropsmapDispatchToProps
+*   @return：返回一个新的函数 connectHOT
+*
+* 2. connectHOT(WrappedComponent) 执行
+*   @params：传递进来要操作的组件 WrappedComponent，需要把指定的属性和方法都挂载到当前组件的属性上
+*   @return：返回一个新的组件 Proxy（代理组件），在代理组件中，我们要获取 Provider 在上下文中存储的 store，紧接着获取 store 中的 state 和dispatch，把 mapStateToProps 和 mapDispatchToProps 回调函数执行，接收返回的结果，再把这些结果挂载到 Component 这个要操作组件的属性上
+*
+* */
+function connect(mapStateToProps, mapDispatchToProps) {
+    return function connectHOT(Component) {
+        return class Proxy extends React.Component {
+            //=>获取上下文中的 store
+            static contextTypes = {
+                store: PropsTypes.object
+            };
+
+            //=>获取 store 中的 state/dispatch，把传递的回调函数执行，接收返回的结果
+            constructor(props, context) {
+                super(props, context);
+                this.state = this.queryMountProps();
+            }
+
+            //=>基于 redux 中的 subscribe 向事件池中追加一个方法，当容器中的状态改变，我们需要重新获取最新的状态信息，并且重新把 Component 渲染，把最新的状态信息通过属性传递给 Component
+            componentDidMount() {
+                this.context.store.subscribe(() => {
+                    this.setState(this.queryMountProps());
+                });
+            }
+
+            //=>渲染 component 组件，并且把获取的信息（状态、方法）挂载到组件的属性上
+            render() {
+                return <Component {...this.state} {...this.props} />
+            }
+
+            //=>从 redux 中获取最新的信息，基于回调函数筛选，返回的是需要挂载到组件属性上的信息
+            queryMountProps = () => {
+                const { store } = this.context,
+                    state = store.getState();
+
+                const propsState = typeof mapStateToProps === 'function' ? mapStateToProps(state) : {};
+
+                const propsDispatch = typeof mapDispatchToProps === 'function' ? mapDispatchToProps(store.dispatch) : {};
+
+                return {
+                    ...propsState,
+                    ...propsDispatch
+                };
+            }
+        }
+    }
+}
+
+```
 
 # 面试高频题目
 1. connect 原理 *

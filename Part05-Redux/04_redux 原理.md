@@ -2,116 +2,9 @@
 
 [TOC]
 
-## connect
-怎么把redux中的数据挂载到当前组件中？
 
-
-// React Redux 的 `connect` 函数
+# createStore
 ```js
-const ConnectedComment = connect(commentSelector, commentActions)(CommentList);
-```
-刚刚发生了什么？！
-
-```js
-// 分开 
-// connect 是一个函数，它的返回值为另外一个函数。
-const enhance = connect(commentListSelector, commentListActions);
-// 返回值为 HOC，它会返回已经连接 Redux store 的组件
-const ConnectedComment = enhance(CommentList);
-```
-`connect 是一个返回高阶组件的高阶函数！`
-
-```js
-// ... 你可以编写组合工具函数
-// compose(f, g, h) 等同于 (...args) => f(g(h(...args)))
-const enhance = compose(
-  // 这些都是单参数的 HOC
-  withRouter,
-  connect(commentSelector)
-)
-const EnhancedComponent = enhance(WrappedComponent)
-```
-
-## react-redux的原理
-
-- connect
-```js
-/*
-* connect(commentSelector, commentActions)(WrappedComponent)
-*
-* connect：高阶组件（基于高阶函数：柯里化函数）创建的组件就是高阶组件
-*   @params：
-*   mapStateToProps：回调函数中的部分状态信息（方法返回的内容）挂载到指定组件的属性上
-*   ```
-*   function mapStateToProps(state){//state：redux中的状态信息
-*       return {};//=>return对象中有啥，就把啥挂载到属性上
-*   }
-*   ```
-*   mapDispatchToProps：回调函数，把一些需要派发的任务方法也挂载到组件的属性上
-*   ```
-*   function mapDispatchToProps(dispatch){//dispatch：store中的dispatch
-*       return {
-*           init(){
-*               dispatch({...});
-*           }
-*       };//=>return对象中有啥，就把啥挂载到属性上
-*   }
-*   ```
-* @return：返回一个新的函数connectHOT
-*
-* ---------------------------------------------------------------
-* connectHOT 执行
-* @params：传递进来要操作的组件，需要把指定的属性和方法都挂载到当前组件的属性上
-* @return：返回一个新的组件 Proxy（代理组件），在代理组件中，我们要获取 Provider 在上下文中存储的 store，紧接着获取 store 中的 state 和dispatch，把 mapStateToProps 和 mapDispatchToProps 回调函数执行，接收返回的结果，再把这些结果挂载到 Component 这个要操作组件的属性上
-*
-* */
-function connect(mapStateToProps, mapDispatchToProps) {
-    return function connectHOT(Component) {
-        return class Proxy extends React.Component {
-            //=>获取上下文中的 store
-            static contextTypes = {
-                store: PropsTypes.object
-            };
-
-            //=>获取 store 中的 state/dispatch，把传递的回调函数执行，接收返回的结果
-            constructor(props, context) {
-                super(props, context);
-                this.state = this.queryMountProps();
-            }
-
-            //=>基于 redux 中的 subscribe 向事件池中追加一个方法，当容器中的状态改变，我们需要重新获取最新的状态信息，并且重新把 Component 渲染，把最新的状态信息通过属性传递给 Component
-            componentDidMount() {
-                this.context.store.subscribe(() => {
-                    this.setState(this.queryMountProps());
-                });
-            }
-
-            //=>渲染 component 组件，并且把获取的信息（状态、方法）挂载到组件的属性上
-            render() {
-                //=>渲染 COMPONENT 组件，并且把获取的信息（状态、方法）挂载到组件属性上（单独调取 POXY 组件的是时候传递的属性也给 COMPONENT）
-                return <Component {...this.state}{...this.props}/>
-            }
-
-            //=>从 redux 中获取最新的信息，基于回调函数筛选，返回的是需要挂载到组件属性上的信息
-            queryMountProps = () => {
-                let { store } = this.context,
-                    state = store.getState();
-                let propsState = typeof mapStateToProps === 'function' ? mapStateToProps(state) : {};
-                let propsDispatch = typeof mapDispatchToProps === 'function' ? mapDispatchToProps(store.dispatch) : {};
-                return {
-                    ...propsState,
-                    ...propsDispatch
-                };
-            }
-        }
-    }
-}
-
-```
-
-## redux原理
-- createStore
-```javascript
 /**
  * @params ;reducer函数
  * @return
@@ -191,7 +84,8 @@ let reducer = (state = {}, action) => {
 let store = createStore(reducer);//=>create时，把reducer传递进来，但是此时reducer并没有执行，只有dispatch时才执行，通过执行reducer修改容器中的状态
 //store.dispatch({type:'xxx'});
 ```
-- combineReducers
+
+# combineReducers
 ```js
 /*
 * 合并reducer的方法
@@ -223,3 +117,6 @@ function combineReducers(reducers) {
 }
 
 ```
+
+# 面试高频题目（无）
+
