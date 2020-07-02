@@ -52,7 +52,7 @@ history stack：历史信息栈（池子）
 ```
 - `基于state传值`（弊端：一旦页面刷新，上一次传递的state值就没有了）
 适合支付页面。
-```
+```js
     //list页
     <Link to={{
         pathname: '/custom/detail',
@@ -68,12 +68,12 @@ history stack：历史信息栈（池子）
 - `URL地址参数`：（把参数当做地址的一部分）
 path = 'custom/detail/:id'
 第一步：在路由中配置动态路径参数
-```
+```js
 	//custom页
 	<Route path='/custom/detail/:id' component={Detail}/>
 ```
 第二步：
-```
+```js
 	//list页
     <Link to={{
         //pathname: '/custom/detail',
@@ -82,10 +82,13 @@ path = 'custom/detail/:id'
         //...
     </Link>
 ```
-第三步：this.props.match.params.id来获取
-```
-	//detail页
-	let params = this.props.match.params,//{id: "34"}
+第三步：this.props.match.params.id 或者 useParams 来获取
+```js
+  import { useParams } from 'react-router-dom';
+	// detail页
+	const params = this.props.match.params, // { id: "34"}
+  
+  // const { id } = useParams();
 ```
 
 # 案例

@@ -5,7 +5,8 @@
 什么时候用路由？同一个区域展示不同的内容
 
 # SPA & MPA
-SPA：（single page）单页面应用，只有一个页面，所有需要展示的内容都在这一个页面中切换，webpack 中只需要配置一个入口（移动端居多 或者 PC 端管理系统类也是单页面应用为主）。
+**SPA：（single page）单页面应用，只有一个页面，所有需要展示的内容都在这一个页面中切换，webpack 中只需要配置一个入口**（移动端居多 或者 PC 端管理系统类也是单页面应用为主）。
+
 MPA：（multi page web application）多页面应用，一个项目由很多页面组成，使用这个产品，主要是页面之间的跳转（PC 端多页面应用居多）：基于框架开发时，需要在 webpack 中配置多入口，每一个入口对应一个页面。
 
 2. 如何实现单页面应用？
@@ -19,14 +20,16 @@ CMD：sea.js
 4）基于 vue、react 的路由实现 SPA 单页面应用，基于 webpack 打包等。
 
 # BrowserRouter & HashRouter
-- BrowserRouter：浏览器路由
-是基于 H5 的 history API（pushState，replaceState，popState）来保持 UI 和URL 的同步，真实项目中应用的不多。一般只有当前项目是基于服务器端渲染的，才会使用浏览器路由。
+- **BrowserRouter：浏览器路由**
+是基于 **H5 的 history API（pushState，replaceState，popState）** 来保持 UI 和URL 的同步，应用的不多。
 
-- HashRouter：哈希路由
-一般前后端分离的项目使用哈希路由。一个 HTML 页面通过不同的HASH值呈现不同的组件。它基于原生 JS 构造了一套类似于 history API 的机制。每一次路由的切换都是基于history stack（历史栈）完成的。
-		+ 当前项目一旦使用 HashRouter，则默认在页面的地址后面加'#/'，也就是 HASH 默认值是一个斜杠，一般让其显示首页内容
-		+ HashRouter 中`只有一个子元素`
-		+ 根据哈希地址不同，展示不同的组件内容，此时需要使用 Route 组件
+需要 server 端支持，一般只有当前项目是基于服务器端渲染使用。ToC
+
+- **HashRouter：哈希路由**
+一般前后端分离的项目使用哈希路由。**一个 HTML 页面通过不同的 HASH 值呈现不同的组件。** 它基于原生 JS 构造了一套类似于 history API 的机制。每一次路由的切换都是基于 history stack（历史栈）完成的。ToB
+  + 当前项目一旦使用 HashRouter，则默认在页面的地址后面加 **'#/'**，也就是 HASH 默认值是一个斜杠，一般让其显示首页内容
+  + HashRouter 中`只有一个子元素`
+  + 根据哈希地址不同，展示不同的组件内容，此时需要使用 Route 组件
 
 
 # 面试高频题目
