@@ -10,15 +10,49 @@
 
 前端工程化开发的特点：
 - 基于组件化、模块化开发
-- 基于webpack的自动部署
+- 基于 webpack 的自动部署
+
+
+组件化：
+- 传统的组件化：只是静态渲染，更新要依赖于操作 DOM
+    + asp、jsp、php 的组件化
+    + nodejs 类似的组件化
+- Vue、React 的组件化：区别于传统组件的本质区别：数据驱动视图
+
+什么是数据驱动视图？
+更新不需要手动操作 DOM，只需要修改数据，Vue（MVVM）、React（MVC） 会根据数据重新渲染视图
+因此 Vue、React 更加关注于数据，关注于业务逻辑。
+
+# MVVM
+![MVVM](https://user-images.githubusercontent.com/22387652/86418026-77c15f80-bd01-11ea-8531-caf2bafb969b.png)
+
+M：Model，数据模型，如 Vue 中的 data
+V：View，视图
+VM：ViewModel，连接着 Model 和 View，扮演着观察者的角色
+特点：`双向的`
+
+- data 更新 view
+当数据发生变化时，ViewModel 通过数据绑定、指令等，能够观察到数据的变化，通知到对应的 view 做视图更新；
+数据改变触发的是 Object.defineProperty() 对属性设置的 set 函数，将更新 view 的方法放在这个 set 函数中。
+- view 更新 data
+当用户操作视图，ViewModel 可以通过 DOM 事件监听到变化，然后在事件中修改数据，这就实现了 view 与 model 的双向绑定。
 
 
 # MVC
+M：Model，数据
+V：View，视图
+C：Controller，控制器
+特点：`单向的`
 
-# MVVM
+![MVC](https://user-images.githubusercontent.com/22387652/86418327-5ca31f80-bd02-11ea-86eb-a7d545935854.png)
 
-# React介绍
-1. React是一个MVC框架。特点：
+
+
+
+
+
+# React 介绍
+1. React是一个 MVC 框架。特点：
 - 划分组件开发
 - 基于路由的SPA单页面开发
 - 基于ES6写代码（最后部署上线时，需要把ES6编译成ES5，基于Babel来完成编译）
@@ -47,32 +81,43 @@ UI各个部分被封装成小组件，小组件再组合成大组件，整个web
 
 总结：react通过虚拟dom技术简化了的ui开发逻辑，弱化了mvc中的c层，实现ui层的组件化，提高代码的复用性和可维护性，提升开发效率。
 
+# Vue 和 React
+## 共同点
+- 都支持组件化
+- 都是数据驱动视图
+- 都使用 vdom 操作 DOM
 
-# 面试高频题目
-1. React 和 Vue 的区别？共通之处？
-- MVC（单向数据流）   MVVM（双向数据流）
 
-- vue 底层使用 Object.defineProperty 来实现双向数据绑定
-react 不是，但可以 change 事件来模拟实现
+## 区别
+1. Vue：MVVM（双向数据流）  React：MVC（单向数据流）   
 
-- vue 使用 template（迎合 HTML，利于项目重构）
-react 使用 JSX语法
+2. Vue 使用 template 迎合 HTML（利于重构）、React 使用 JSX 语法拥抱 JS
 
-- 钩子函数
-vue 的 beforeMount 对应 react 的 componentWillMount
-vue 的 mounted 对应 react 的 componentDIdMount
-vue 的 beforeUpdate 对应 react 的 componentWillUnmount
+3. Vue 声明式编程，对初学者友好；React 函数式编程
 
-react 更新的那套钩子函数做了更精细的控制，可以用 should 来控制是否 update
+4. Vue 底层使用 Object.defineProperty 来实现双向数据绑定
+React 不是，但可以 change 事件来模拟实现
 
-- 事件机制：
+5. 钩子函数
+React 更新的那套钩子函数做了更精细的控制，可以用 should 来控制是否 update
+- Vue 的 beforeMount    React 的 componentWillMount
+- Vue 的 mounted    React 的 componentDIdMount
+- Vue 的 beforeUpdate    React 的 componentWillUnmount
+
+
+6. 事件机制：
 Vue 的 event 是原生的，事件被挂载到当前元素上，和 原生 DOM 事件一样。
 React 的不是原生的，是合成事件对象，事件被挂载到 document 上。
 
-- 性能优化，对于 React 更加重要（相比于 Vue）！ 
+7. 性能优化，对于 React 更加重要（相比于 Vue）！ 
 React 的 SCU 默认返回 true
 
-2. 怎么理解react
+
+
+# 面试高频题目
+1. React 和 Vue 的区别？共通之处？*
+
+2. 怎么理解 react
 
 
 
