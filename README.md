@@ -49,7 +49,7 @@ useReducer 可以解决你知道吗？
 
 # React 原理
 1. 函数式编程，如不可变值 *
-2. vdom 和 diff *
+2. vdom 和 diff * 
 3. JSX 本质 *
 4. 合成事件 *
 5. setState 和 batchUpdate（必考）*
@@ -58,3 +58,4 @@ useReducer 可以解决你知道吗？
 # 需要再捋捋的知识点
 1. React.PureComponent React.memo useMemo
 2. redux-saga, dva 与 redux 的区别
+3. vdom 和 diff，核心：h 函数、vnode、patch
