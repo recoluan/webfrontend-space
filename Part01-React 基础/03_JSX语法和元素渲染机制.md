@@ -11,9 +11,9 @@
 
 # JSX语法
 JSX：`JavaScript + XML（HTML）`
-JSX可以创建一个 `React 元素`。每一个JSX只能有一个根元素。
+JSX 可以创建一个 `React 元素`。每一个 JSX 只能有一个根元素。
 
-和之前拼接的HTML字符串类似，都是把HTML结构代码和JS代码或者数据混合在一起，但它不是字符串。
+和之前拼接的 HTML 字符串类似，都是把 HTML 结构代码和 JS 代码或者数据混合在一起，但它不是字符串。
 
 1. `JSX中的{}`：存放JS代码，可以将数据嵌入到JSX中。
 - 基本类型的值
@@ -62,16 +62,16 @@ JSX可以创建一个 `React 元素`。每一个JSX只能有一个根元素。
 - class 用 className 代替
 
 
-# JSX渲染机制
-目的：把JSX（虚拟DOM）变为真实的DOM。
+# JSX 渲染机制
+目的：把 JSX（虚拟 DOM）变为真实的 DOM。
 
-1. 第一步，基于babel中的语法解析模块（babel-preset-react）把JSX语法编译为React.createElement(...)
-babel是一个强大的正则解析库。
+1. 第一步，基于 babel 中的语法解析模块（babel-preset-react）把 JSX 语法编译为 React.createElement(...)
+babel 是一个强大的正则解析库。
 
-2. 第二步，执行 React.createElement(type, props, children)，创建一个对象（这个对象就是虚拟DOM）
+2. 第二步，执行 **React.createElement(type, props, children)**，创建一个对象（这个对象就是虚拟 DOM）
 这个对象的属性有
-	+ type：标签名
-	+ props：一个对象，存放的是这个标签上的属性
+	+ type：标签名 或者组件（首字母大写）
+	+ props：一个对象，存放的是这个标签上的属性，没有是 null
 		+ id
 		+ className
 		+ style
@@ -80,9 +80,9 @@ babel是一个强大的正则解析库。
 	+ key
 	+ ...
 	+ \__proto__：Object.prototype
-3. 第三步，基于render方法，把动态生成的虚拟DOM元素，插入到指定的容器中
-ReactDOM.render([JSX],[container],[callback]);
-	+ JSX：`React虚拟元素`
+3. 第三步，基于 render 方法，把动态生成的虚拟 DOM 元素，插入到指定的容器中
+**ReactDOM.render([JSX],[container],[callback])**;
+	+ JSX：`React 虚拟元素`
 	+ container：容器，把元素放到页面中的那个容器中，不建议把JSX直接渲染到document.body中，一般挂载到一个ID为root的div中（根节点）。可以基于document.getElementById('root')获取，也可以直接写root。
 	+ callback：把内容放到页面中呈现触发的回调函数
 ```javascript
@@ -92,4 +92,5 @@ ReactDOM.render(<div>
 ```
 
 
-# 面试高频题目(本节无)
+# 面试高频题目
+1. JSX 本质是什么 *

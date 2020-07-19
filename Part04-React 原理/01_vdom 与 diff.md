@@ -140,4 +140,5 @@ patch 函数
 
 
 # 面试高频题目
-
+1. 列表渲染为何使用 key？key 为什么不能使用 index 和 random？
+diff 算法中通过 tag 和 key 来判断，不是不 sameNode

@@ -3,11 +3,11 @@
 [TOC]
 
 # Context
->Context 提供了一种在组件树之间**跨层级传递“全局”的数据的方式**，而不必显示的为每层组件手动添加 props。
+>Context 提供了一种在组件树之间 **跨层级传递“全局”的数据的方式**，而不必显示的为每层组件手动添加 props。
 
 比如当前用户信息、主题色或首选语言的全局共享
 
-**主要解决逐层传递 props 太过繁琐的问题**。
+一般父组件向所有子孙组件传递数据，**主要解决逐层传递 props 太过繁琐的问题**。
 
 ```js
 // 1. 使用 React.createContext(defaultValue)，创建一个 Context 对象。
@@ -85,4 +85,4 @@ class Page extends React.Component {
 
 # 面试高频题目
 1. 组件之间通信方式 *
-2. Context 是什么，有何用途？
+2. Context 是什么，有何用途？*

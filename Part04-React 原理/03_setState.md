@@ -111,7 +111,7 @@ add = () => {
 在“异步更新”的过程中，React 会批处理同一周期内的多个 setState，将它们 加入一个 updateQueue 队列。
 
  
->1. **当 setState() 第一个参数为一个`对象`时**，`并不是依次执行`队列中的 setState() 调用，而是`先将对象浅合并（shallow merge）（同名参数覆盖）`，再执行更新。
+>1. 当 setState() **第一个参数为一个 对象** 时，**并不是依次执行** 队列中的 setState() 调用，而是**先将对象浅合并（shallow merge）（同名参数覆盖）**，再执行更新。
 
 [online-demo](https://codesandbox.io/s/react-setstate-riyhk?file=/src/index.js)
 例如，如果在同一周期内一次调用了多个 setState：
@@ -138,9 +138,8 @@ Object.assign(
 )
 ```
 
-> 2. **当第一个参数是 `updater 函数的调用时`**，会按照调用顺序加入队列，然后`依次执行更新`。
+> 2. 当**第一个参数是 updater 函数**的调用时，会按照调用顺序加入队列，然后 **依次执行更新**。
 
-如果想要实现三次调用 使得 count 增加 3，可以使用 updater 函数的形式：
 ```js
 add() {
   console.log(this.state.count); // -> 0
@@ -150,6 +149,7 @@ add() {
   console.log(this.state.count); // -> 0
 }
 ```
+updater 函数的形式，实现了三次调用 使得 count 增加 3
 
 ### 同步更新不存在合并更新
 
