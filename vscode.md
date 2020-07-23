@@ -1,8 +1,17 @@
 
 # 常用插件安装与使用
 
+1. 配置 git 账号和密码:
+- 首选项-->设置，搜索 git.path，输入 'E:/Program Files/Git/bin/git.exe'
+- git config --global credential.helper store
+
+Shift + Alt + U 将配置环境 扩展插件信息上传到云端
+
+Shift + Alt + D 下载云端的配置
+
 1. Project Manager
 [https://blog.csdn.net/jinzhu1911/article/details/102964065](Project Manager)
+gist ID 和 token 是不同的
 
 2. 自定义代码片段
 [VSCode 利用 Snippets 设置超实用的代码块](https://juejin.im/post/5d0496415188257fff23b077)
