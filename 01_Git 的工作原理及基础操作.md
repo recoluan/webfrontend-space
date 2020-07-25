@@ -5,10 +5,10 @@
 如果是第一次使用git，需要提供身份认证，配置用户名和邮箱
 - 查看配置的信息：`$ git config -l`
 
-- 配置用户名和邮箱：建议和 GitHub 里的保持一致：
+- 配置、保存用户名和邮箱：建议和 GitHub 里的保持一致：
 `$ git config --global user.name xxx`
 `$ git config --global user.email xxx`
-
+`$ git config credential.helper store`
 
 # 获取 git 仓库
 有两种取得 Git 项目仓库的方法。
