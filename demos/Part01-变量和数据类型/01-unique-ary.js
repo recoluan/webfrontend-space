@@ -71,29 +71,3 @@ for (var i = 0; i < ary.length; i++) {
 
 
 
-const arr = [1, 1, 2, 3, 5, 4, 5, 3, 4, 'a', 'b', 'a'];
-//方法一：使用[…new Set(arr)] 或 Array.from(new Set(arr))
-
-//方法二：使用 forEach() 和 includes()
-const newArr = []
-arr.forEach(item => {
-	if (!newArr.includes(item)) {
-		newArr.push(item);
-	}
-});
-console.log(newArr);
-
-//方法三：使用 reduce() 和 includes()
-let newArr = arr.reduce((pre, cur) => {
-	if (!pre.includes(cur)) {
-		pre.push(cur);
-	}
-	return pre;
-}, []);
-console.log(newArr);
-
-//方法四：使用 filter() 和 indexOf()
-const newArr = arr.filter((item, index, array) =>
-	array.indexOf(item) === index);
-console.log(newArr);
-
