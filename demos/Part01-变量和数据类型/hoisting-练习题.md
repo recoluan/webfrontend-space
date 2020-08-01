@@ -1,6 +1,6 @@
 # 编译及变量提升练习题
 1.
-```
+```js
 console.log(a);
 a = 12;
 function fn() {
@@ -17,7 +17,7 @@ console.log(a);
 </details>
 
 2. 
-```
+```js
 console.log(a);
 if ('a' in window) {
     var a = 12;
@@ -32,7 +32,7 @@ undefined
 </details>
 
 3. 
-```
+```js
 var foo;
 function foo() {
     console.log(1);
@@ -49,7 +49,7 @@ foo();
 </details>
 
 4.
-```
+```js
 fn();
 function fn() {
     console.log(1);
@@ -76,7 +76,7 @@ Uncaught TypeError: fn is not a function
 </details>
 
 5.
-```
+```js
 f = function() {
     return true;
 };
@@ -101,15 +101,13 @@ console.log(g());
 <details><summary><b>Answer</b></summary>
 <p>
 undefined
-true
-false
-false
+Uncaught TypeError: g is not a function
 </p>
 </details>
 
 
 6. 
-```
+```js
 let a = 10,
     b = 12;
 let fn = function() {
@@ -135,17 +133,17 @@ undefined 12
 </details>
 
 7.
-```
+```js
 b = 12;
-console.log(b); //输出12
-a = 12; //在这报错Uncaught ReferenceError: a is not defined 因为有let声明了同名的变量，不能给window添加该属性
+console.log(b); //输出 12
+a = 12; //在这报错 Uncaught ReferenceError: a is not defined 因为有let 声明了同名的变量，不能给 window 添加该属性
 let a = 13;
 console.log(a);
 ```
 
 
 8.
-```
+```js
 foo();
 var a = true;
 if (a) {
@@ -157,6 +155,6 @@ if (a) {
 
 <details><summary><b>Answer</b></summary>
 <p>
-执行foo()时，报错Uncaught TypeError: foo is not a function
+执行 foo() 时，报错 Uncaught TypeError: foo is not a function
 </p>
 </details>
