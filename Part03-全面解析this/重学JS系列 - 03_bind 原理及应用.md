@@ -1,3 +1,7 @@
+目录
+
+[TOC]
+
 今天我们将深度讲解 bind 的原理及应用。
 
 # bind
@@ -33,20 +37,16 @@ bindFn(); // 1
 我们一起分解一下执行步骤：
 - fn.bind：当前实例（函数 fn）通过原型链的查找机制，找到 Function.prototype 上的 bind 方法
 - 把找到的 bind 方法执行，返回一个匿名函数（`每一次返回的函数是不一样的`，对应不同的堆内存）
-=> **当匿名函数执行时，内部处理了一些事情**：
+  => **当匿名函数执行时，内部处理了一些事情**：
 	+ 首先把要`操作的函数（fn）中的 this` 变为`bind 方法第一个实参值`
-	+ 把要`操作的函数（fn）执行`，并且把匿名函数传递的参数和 bind 第二个以后传递的实参传给函数
+	+ 把要`操作的函数（fn）执行`，并且**把匿名函数传递的参数和 bind 第二个以后传递的实参**传给函数
 
 伪代码如下：
 ```js
-let fn = function fn(x, y) {
-    console.log(this, x, y);
-};
-let obj = {name: 'haha'};
 Function.prototype.myBind = function myBind(context, ...arg) {
     //=>context：执行的上下文
     //=>arg：需要传递给fn的实参
-    let self = this;//=>只是为了保证匿名函数中的this是fn
+    const self = this;//=>只是为了保证匿名函数中的this是fn
 
     return function anonymous(...innerArg) {
         //=>innerArg：可能有值，可能没有值
@@ -55,12 +55,16 @@ Function.prototype.myBind = function myBind(context, ...arg) {
     }
 };
 
-let bindFn = fn.myBind(obj, 10);
+
+const fn = function fn(x, y) {
+    console.log(this, x, y);
+};
+const obj = {name: 'haha'};
+const bindFn = fn.myBind(obj, 10);
 
 //执行一次 bind，形成一个闭包，返回一个新的匿名函数
 bindFn('anony');
 ```
-
 
 
 # 应用
@@ -88,9 +92,4 @@ func(4);// 3 4
 ```
 
 
-# 结束
-***重学 JS 系列*** 预计 25 篇左右，这是一个旨在帮助大家，其实也是帮助我自己捋顺 JavaScript 底层知识的系列。主要包括变量和类型、执行上下文、作用域及闭包、原型和继承、异步和性能四个部分，将重点讲解如执行上下文、作用域、闭包、this、call、apply、bind、原型、继承、Event-loop、宏任务和微任务等比较难懂的部分。让我们一起拥抱整个 JavaScript 吧。
-
-大家或有疑问、或指正、或鼓励、或感谢，尽管留言回复哈！非常欢迎 star 哦！
-
-[点击返回博客主页](https://github.com/cxh0224/blog)
+# 常见面试题
