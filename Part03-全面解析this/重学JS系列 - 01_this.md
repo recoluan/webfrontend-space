@@ -25,7 +25,7 @@ activeExecutionContext = {
 };
 ```
 
-this 的值（指向哪个对象）在上下文**创建阶段**就确定了，并且**在代码执行阶段不能被改变**。
+<!-- this 的值（指向哪个对象）在上下文**创建阶段**就确定了，并且**在代码执行阶段不能被改变**。 -->
 
 # 全局环境中的 this
 
@@ -410,3 +410,17 @@ o.foo(); // 3
 这块大概有个规律：括号表达式，this 会变为 window，如果只是(obj.fn)()this 还是 obj。
 
 # 常见面试题
+```js
+const obj = {
+    name: 'zhangsan',
+    sayHi() {
+        console.log(this)
+        setTimeout(function() {
+            console.log(this)
+        })
+    }
+}
+obj.sayHi();
+// obj
+// window
+```
