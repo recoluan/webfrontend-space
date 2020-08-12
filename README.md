@@ -1,15 +1,26 @@
+目录
+
+[TOC]
 
 题目 -》 考点、知识点 -》 题目
+- JS 基础知识：规定语法（ECMA 262标准）
+- JS Web API：网页操作的 API（W3C标准）
 
-原型、原型链
-作用域、闭包
-异步、单线程
 
-DOM、BOM
-Ajax、跨域
-事件
 
-性能优化
+1. window.onload 和 DOMContentLoaded 的区别？
+    考点：页面渲染、加载过程 -》 为什么 把 css 文件的加载放在 head 标签里，把 script 文件放在 body 最底下？
+2. 手写节流 throttle、防抖 debounce   
+    考点：性能、体验优化
+3. Promise 解决了什么问题？
+    考点：JS 异步 -》 同步、异步的区别 -》 异步的应用场景 -》 定时器应该在什么场景下去使用？
+
+
+![image](https://user-images.githubusercontent.com/22387652/88448616-32143480-ce72-11ea-876d-035e71625625.png)
+
+![image](https://user-images.githubusercontent.com/22387652/88448656-a9e25f00-ce72-11ea-8333-f98e9ae17ebb.png)
+
+
 
 # Part01-变量和类型
 1. 声明变量的几种方式
@@ -36,7 +47,7 @@ const a = [1, 2, 3, 4, 5, 7, 9],
 # Part02-执行上下文、作用域、闭包
 1. 什么是作用域？分为？全局作用域、函数作用域、块级作用域（ES6 新增）
 2. 闭包在实际开发中的应用场景，举例说明
-3. 场景题：创建 10 个 <a>标签，点击的时候弹出来对应的序号
+3. 场景题：创建 10 个 \<a>标签，点击的时候弹出来对应的序号
 
 # Part03-全面解析this
 1. this 的不同应用场景，如何取值？
@@ -48,7 +59,16 @@ const a = [1, 2, 3, 4, 5, 7, 9],
 2. 手写一个简易的 jQuery，考虑插件和扩展性
 3. class 的原型本质，怎么理解？
 
-# Part05-异步和性能
+# Part05-单线程、异步
+
+# Part06-JS Web API（BOM、DOM、Ajax、事件）
+
+
+# Part07-页面渲染与性能优化
+
+
+# ES 6/7/8/9
+
 
 
 # 各种手写代码
@@ -56,36 +76,14 @@ const a = [1, 2, 3, 4, 5, 7, 9],
 2. 手写 flat
 3. 手写 bind 函数
 
-HTTP协议
 
-![image](https://user-images.githubusercontent.com/22387652/88448616-32143480-ce72-11ea-876d-035e71625625.png)
-
-![image](https://user-images.githubusercontent.com/22387652/88448656-a9e25f00-ce72-11ea-8333-f98e9ae17ebb.png)
-
-
-# JavaScript
-
-
-- window.onload 和 DOMContentLoaded 的区别？
-    考点：页面渲染、加载过程 -》 为什么 把 css 文件的加载放在 head 标签里，把 script 文件放在 body 最底下？
-- 手写节流 throttle、防抖 debounce   
-    考点：性能、体验优化
-- Promise 解决了什么问题？
-    考点：JS 异步 -》 同步、异步的区别 -》 异步的应用场景 -》 定时器应该在什么场景下去使用？
-
-
-
-
-
-# ES 6/7/8/9
-
-# Part4 异步和性能
+<!-- # Part4 异步和性能
 1. 重学 JS 系列 - JS是单线程的
 2. 重学 JS 系列 - 任务队列及Event-loop
 3. 重学 JS 系列 - 宏任务和微任务
 4. 重学 JS 系列 - AJAX及跨域
 5. 重学 JS 系列 - DOM
-6. 重学 JS 系列 - 事件机制
+6. 重学 JS 系列 - 事件机制 -->
 
 
 
