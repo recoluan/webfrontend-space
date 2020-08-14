@@ -66,7 +66,72 @@ someNode.firstChild === someNode.childNodes[0];
 someNode.lastChild === someNode.childNodes[someNode.childNodes.length - 1];
 ```
 
+# DOM 元素的属性 
+## 内置的属性
+获取到的DOM元素，是一个`对象类型的值`。
+包含很多内置的属性：
+- id：当前元素的ID值，string
+- className：当前元素的类名，string
+- style：存储当前元素的所有“行内样式”值，`只能操作行内样式`
+- innerHTML：存储当前元素包含的所有内容（包含 HTML标签），`string`
+- innerText：存储当前元素包含的所有文本内容（没有HTML标签），`string`
+- onclick：元素的一个事件属性，用于给元素绑定点击事件
+- onmouseover：鼠标滑过事件
+- onmouseout：鼠标离开事件
 
+
+
+特殊：a标签的属性
+比如：
+```
+<a href="http://www.baidu.cn/stu/?lx=1&name=AA&sex=man#teacher" id="link"></a>
+```
+a 标签除了具有以上普通属性，还有自己特有的属性：
+- host: 服务器名称和端口号
+- hostname: 服务器名称
+- port：端口号
+- hash: hash值 "#teacher"
+- search: 查询字符串 "?lx=1&name=AA&sex=man"
+- pathname："/stu/"
+- protocol: "http:"
+
+
+## 自定义属性
+
+三种方法来设置元素对象的==自定义属性==：
+
+1. 第一种：**Property** 基于对象的键值对操作方式，修改元素对象的堆内存空间来完成
+```js
+//=>把元素对象当做一个普通的对象，在堆内存中新增一个自定义属性
+oBox.className = 'red';
+oBox.style.width = '100px';
+// <div id="oBox" class="red" style="width: 100px"></div>
+delete oBox.myColor
+```
+
+2. 第二种：**Attribute** 是直接修改页面中 HTML 标签的结构来完成（可以在结构上呈现出来）
+```js
+oBox.setAttribute('myColor','red'); //设置
+oBox.setAttribute('style','font-size: 50px'); //设置
+// <div id="oBox" myColor="red" style="font-size: 50px"></div>
+oBox.getAttribute('myColor'); //获取
+oBox.removeAttribute('myColor'); //移除
+```
+**Property 是修改 JS 对象，不会体现到 HTML 结构中，Attribute 是直接修改 HTML 结构，操作 DOM**。两种方法是两个系统，互不影响，都会引起DOM 重新渲染。推荐使用 Property，操作 DOM 很消耗性能
+
+
+3. 第三种：自定义属性 data-xxx
+	+ 设置：在某一个元素上，添加属性data-xxx=[值]，会在`结构上显示出来`。
+	+ 获取：
+        方法1：`[元素对象].dataset.xxx`
+        方法2：`[元素对象].getAttribute('data-xxx')`
+```js
+// HTML 
+<div id="myId" data-myColor="red"></div>  //设置
+// JS
+var myColor = document.getElementById("myId").dataset.myColor;// 获取
+// 也可以：[元素对象].getAttribute("data-myColor");
+```
 
 # DOM 节点操作
 ## 获取 DOM 元素
@@ -107,8 +172,8 @@ console.log(typeof oBox);//"object"
 
 ### [context].querySelector()
 基于CSS选择器（'#box'）来获取到指定的元素对象，`即时选择器匹配了多个，我们只获取一个`。
-注意：
-选择器可以这样写 ‘.box' 或 '.box>div'
+
+注意：选择器可以这样写 ‘.box' 或 '.box>div'
 
 
 ## 获取元素集合
@@ -121,12 +186,12 @@ console.log(typeof oBox);//"object"
 - `不能直接使用数组中的方法`
 
 
-```
+```js
 var oBox = document.getElementById('box');
 var oList = oBox.getElementsByTagName('li');
 console.log(oList);
 ```
-![Alt text](./1522914476857.png)
+
 
 
 ### [context].getElementsByTagName()
@@ -180,7 +245,7 @@ name在表单中主要是给表单元素分组的。
 //->不能使用querySelectorAll()
 1.获取页面中所有的HTML元素，
 2.遍历这些元素，筛选ID为"HAHA"
-```
+```js
 function queryAllById(id){
 	let nodelist = document.getElementByTagName('*'),
 		ary=[];
@@ -206,22 +271,25 @@ function queryAllById(id){
 把创建的元素插入到页面中，主要有两种方法：
 + appendChild
 把一个元素对象插入到指定容器中的末尾
-语法：[ container ].appendChild.( [newEle] )
+语法：[container].appendChild.([newEle])
+
 
 + insertBefore
 把一个元素对象插入到指定容器中某一个元素标签之前
-语法：[ container ].insertBefore.( [newEle] , [oldEle] )
+语法：[container].insertBefore.([newEle], [oldEle])
+
+注意：[container].appendChild.([已有节点]) 是将已有节点移动到 当前容器， 移动 ！！！
 
 ### replaceChild / removeChild
 - replaceChild
 在指定容器中用一个新节点替换某一个元素
-语法：[ container ].replaceChild.( [newEle] , [someEle] )
+语法：[container].replaceChild.([newEle], [someEle])
 
 - removeChild
 在指定容器中删除某一个元素
-语法：[ container ].removeChild.( [curEle] )
+语法：[container].removeChild.([curEle])
 返回：被删除的节点
-注意：removeChild删除的节点不在DOM树中，但仍在内存中
+注意：removeChild 删除的节点不在DOM树中，但仍在内存中
 彻底删除对象，可给返回值赋null
 
 以上四个方法，首先需要获取一个父节点，然后基于这个父容器来操作它的子节点。
@@ -237,16 +305,27 @@ function queryAllById(id){
 
 
 
-# DOM 结构操作
-
 # DOM 性能
 
+## DOM 做查询缓存
+```js
+// 不缓存 DOM 查询结果
+for (let i = 0; i < document.getElementsByTagName('p'); i++) {
+    // 每次循环都会计算 length，频繁进行 DOM 查询
+}
 
+// 缓存 DOM 查询结果
+const pList = document.getElementsByTagName('p');
+const length = pList.length;
+for (let i = 0; i < length; i++) {
+    // 缓存 length，只进行一次 DOM 查询
+}
+```
 
 # 常见面试题
-DOM 是哪种数据结构
-DOM 操作常用的 API
-attribute 和 property 的区别
-一次性插入多个 DOM 节点，考虑性能
+1. DOM 是哪种数据结构
+2. DOM 操作常用的 API
+3. attribute 和 property 的区别
+4. 一次性插入多个 DOM 节点，考虑性能
 
 

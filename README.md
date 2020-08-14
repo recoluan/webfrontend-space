@@ -61,7 +61,7 @@ const a = [1, 2, 3, 4, 5, 7, 9],
 
 # Part05-单线程、异步
 
-# Part06-JS Web API（BOM、DOM、Ajax、事件）
+# Part06-JS Web API（BOM、DOM、AJAX、事件）
 
 
 # Part07-页面渲染与性能优化
