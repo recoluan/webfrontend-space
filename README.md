@@ -62,6 +62,12 @@ const a = [1, 2, 3, 4, 5, 7, 9],
 # Part05-单线程、异步
 
 # Part06-JS Web API（BOM、DOM、AJAX、事件）
+1. DOM 是哪种数据结构？
+2. DOM 操作常用的 API
+3. attribute 和 property 的区别
+4. 一次性插入多个 DOM 节点，考虑性能
+5. 手写一个简易的 AJAX
+6. 跨域的常用实现方式
 
 
 # Part07-页面渲染与性能优化

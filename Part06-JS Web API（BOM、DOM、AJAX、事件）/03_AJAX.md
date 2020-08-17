@@ -55,11 +55,11 @@ IE5、IE6 用的是 ActiveXObject 对象
   + Async 设置是否异步，true 为异步，false 为同步
 
 3. 第三步：添加 onreadystatechange 事件监听（`AJAX状态改变`事件）
-	+ AJAX 状态（xhr.readyState）：
-  `0`：`unsent` =>刚开始创建xhr，还没有发送
-  `1`：`opened` =>已经执行了open这个操作
-  `2`：`headers_received` =>已经发送AJAX请求（AJAX任务开始），响应头信息已经被客户端接收了（响应头中包含了：服务器的时间、返回的HTTP状态码...）
-  `3`：`loading` =>响应主体内容正在返回
+	+ AJAX 状态（**xhr.readyState**）：
+  `0`：`unsent` =>刚开始创建 xhr，还未调用 open() 方法
+  `1`：`opened` =>open() 已经被调用
+  `2`：`headers_received` =>send() 方法已经被调用，已经发送 AJAX 请求（AJAX任务开始）。响应头信息被客户端接收（响应头中包含了：服务器的时间、返回的 HTTP 状态码...）
+  `3`：`loading` =>下载中；响应主体内容正在返回，responseText 属性已经包含部分数据。
   `4`：`done` =>响应主体内容已经被客户端全部接收，可以在浏览器端使用。
 
 4. 第四步：发送请求。
@@ -69,17 +69,25 @@ IE5、IE6 用的是 ActiveXObject 对象
   + 有请求主体，一般是字符串，可能是 JSON 格式、XML 格式、普通字符串格式的。
   =>项目中常用的是`URL-encode格式`的字符串（"id=1000&lx=2000"）
 
+
 栗子：
 ```javascript
 const xhr = new XMLHttpRequest();//=>0
-xhr.open('GET','/temp/list', true);//=>1
+xhr.open('GET','/api', true);//=>1 // POST
 xhr.onreadystatechange = () =>{ //=>DOM事件绑定是异步的
-   if(xhr.readyState===2){console.log(1);}
-   if(xhr.readyState===4){console.log(2);}
+   if (xhr.readyState === 4){
+     if (xhr.status === 200){
+        console.log(xhr.responseText);
+     }
+   }
 };
-xhr.send(); //=>当前AJAX任务开始，异步
-console.log(3);
-//=>3 1 2
+// GET
+xhr.send(null); //=>当前AJAX任务开始，异步
+// POST
+// const data = {
+//   name: 'chen',
+// };
+// xhr.send(JSON.stringify(data));
 ```
 
 
@@ -148,6 +156,18 @@ new Data(时间字符串)：把指定的时间字符串格式化为标准的北�
 
 ## AJAX 中的同步异步
 1. 异步
+```javascript
+const xhr = new XMLHttpRequest();//=>0
+xhr.open('GET','/temp/list', true);//=>1
+xhr.onreadystatechange = () =>{ //=>DOM事件绑定是异步的
+   if(xhr.readyState===2){console.log(1);}
+   if(xhr.readyState===4){console.log(2);}
+};
+xhr.send(); //=>当前AJAX任务开始，异步
+console.log(3);
+//=>3 1 2
+```
+
 ```javascript
 const xhr=new XMLHttpRequest(); //=>0
 xhr.open('GET','/temp/list', true); //=>1
@@ -423,5 +443,5 @@ data的值可以是对象也可以是字符串：中文会自动编码
 
 
 # 常见面试题
-## AJAX 的工作流程
-手写 原生 AJAX
+## 手写一个简易的 AJAX
+

@@ -117,7 +117,7 @@ oBox.setAttribute('style','font-size: 50px'); //设置
 oBox.getAttribute('myColor'); //获取
 oBox.removeAttribute('myColor'); //移除
 ```
-**Property 是修改 JS 对象，不会体现到 HTML 结构中，Attribute 是直接修改 HTML 结构，操作 DOM**。两种方法是两个系统，互不影响，都会引起DOM 重新渲染。推荐使用 Property，操作 DOM 很消耗性能
+**Property 是修改 JS 对象，不会体现到 HTML 结构中，Attribute 是直接修改 HTML 结构，操作 DOM**。两种方法是两个系统，互不影响，**都会引起DOM 重新渲染**。推荐使用 Property，操作 DOM 很消耗性能
 
 
 3. 第三种：自定义属性 data-xxx
@@ -306,6 +306,9 @@ function queryAllById(id){
 
 
 # DOM 性能
+避免频繁的 DOM 操作，操作 DOM 是非常消耗性能的
+- 对 DOM 做查询缓存
+- 将频繁操作改为一次性操作（打包一次性插入）
 
 ## DOM 做查询缓存
 ```js
@@ -322,8 +325,25 @@ for (let i = 0; i < length; i++) {
 }
 ```
 
+## 将频繁操作改为一次性操作
+当`需要动态向页面追加元素`时，基于文档碎片或者把需要增加的所有元素拼接成字符串
+- 基于`文档碎片`
+文档碎片是在虚拟内存中开辟的一个容器。每当创建一个li，我们首先把它放到文档碎片中，（千万不要放到页面中，避免回流），当我们需要的元素都创建完，把文档碎片一次性打包到页面中。
+```js
+const listNode = document.getElementById('list');
+const frag = document.createDocumentFragment();//=>1.创建文档碎片容器，此时还没有插入到 DOM 树中
+for (let i = 0; i < 10; i++) {
+  const li = document.createElement('li');
+  
+  li.innerHTML = `List item + ${i}`;
+	frag.appendChild(li);//=>2.每一次把创建的li存放到文档碎片中
+}
+listNode.appendChild(frag);//=>把文档中的碎片统一放到 DOM 树中
+frag = null;//=>清空 frag
+```
+
 # 常见面试题
-1. DOM 是哪种数据结构
+1. DOM 是哪种数据结构？ DOM 树型结构
 2. DOM 操作常用的 API
 3. attribute 和 property 的区别
 4. 一次性插入多个 DOM 节点，考虑性能
