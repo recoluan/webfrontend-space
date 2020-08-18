@@ -82,7 +82,7 @@ xhr.onreadystatechange = () =>{ //=>DOM事件绑定是异步的
    }
 };
 // GET
-xhr.send(null); //=>当前AJAX任务开始，异步
+xhr.send(null); //=>当前AJAX任务开始，异步 => 2
 // POST
 // const data = {
 //   name: 'chen',
@@ -444,4 +444,45 @@ data的值可以是对象也可以是字符串：中文会自动编码
 
 # 常见面试题
 ## 手写一个简易的 AJAX
+```js
+const xhr = new XMLHttpRequest();
+
+xhr.open('GET', url, true);
+xhr.onreadystatechange = () => {
+  if (xhr.readyState === 4) {
+    if (xhr.status === 200) {
+      console.log(xhr.responseText);
+    }
+  }
+}
+xhr.send(null);
+```
+与 Promise 结合的 ajax：
+```js
+function ajax(url) {
+  const p = new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          resolve(xhr.responseText);
+        } else if (xhr.status === 404) {
+          reject(new Error('404 not found'))
+        }
+      }
+    }
+    xhr.send(null);
+  });
+
+  return p;
+}
+
+const url = '/data/test.json';
+
+ajax(url)
+.then(res => console.log(res))
+.catch(err => console.log(err))
+```
 
