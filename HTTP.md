@@ -108,12 +108,11 @@ DHTML：动态页面，泛指当前页面中的内容不是写死的而是动态
 在客户端向服务器发送请求，以及服务器把内容响应给客户端时，中间相互传递了很多内容（客户端把一些内容传递给服务器，服务器把一些内容响应给客户端），我们把传递的内容统称为“HTTP 报文”。
 
 1. 起始行：
-- 请求起始行：method  HTTP协议
-- 响应起始行：HTTP协议  status   statusText
+- 请求起始行：method  HTTP 协议
+- 响应起始行：HTTP 协议 status statusText
 2. 首部（头）：
-- 通用头
-```
-//=>General
+- 通用头（General Headers）
+```js
 Request URL: https://www.baidu.com/
 Request Method: GET
 Status Code: 200 OK
@@ -121,9 +120,6 @@ Remote Address: 61.135.169.121:443 //=>主机地址（服务器外网IP地址）
 Referrer Policy: no-referrer-when-downgrade //=>指定请求是从哪个页面跳转来的，分析用户来源
 ```
 - 响应头（Response Headers）
-服务器端设置
-	+ `Date`：服务器响应内容的`服务器端时间`，和客户端拿到响应内容的真实时间有误差，因为返回到客户端需要时间
-		+ GMT是格林尼治时间，比北京时间慢8个小时，北京时间是GMT+0800
 ```javascript
 HTTP/1.1 200 OK //=>响应起始行，304表示是从上次缓存直接拿的，if-Modified-Since是记录上一次缓存时间
 Bdpagetype: 2
@@ -133,40 +129,27 @@ Connection: Keep-Alive
 Content-Encoding: gzip
 Content-Type: text/html;charset=utf-8
 Date: Sun, 27 May 2018 01:13:00 GMT //=>服务器端时间，GMT是格林尼治时间
-Expires: Sun, 27 May 2018 01:12:59 GMT
-Server: BWS/1.1  //=>管理web服务的工具
-Set-Cookie: BDSVRTM=328; path=/
-Set-Cookie: BD_HOME=1; path=/
-Set-Cookie: H_PS_PSSID=18195_1460_21092_26350_26432; path=/; domain=.baidu.com
-Strict-Transport-Security: max-age=172800
-X-Ua-Compatible: IE=Edge,chrome=1
-Transfer-Encoding: chunked
+//...
 ```
-- 请求头（Request Headers
+- 请求头（Request Headers）
 ```javascript
 GET / HTTP/1.1 //=>请求起始行
 Host: www.baidu.com
 Connection: keep-alive
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.170 Safari/537.36  //=>记录浏览器版本信息
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
-Accept-Encoding: gzip, deflate, br
-Accept-Language: zh-CN,zh;q=0.9
-Cookie: ...//=>cookie信息一般都是放到头文件中实现和服务器端的数据通信的
+//...
 ```
 
 3. 主体：
 - 请求主体（`Request Payload / Form Data`）
 客户端传递给服务器的内容
-表单验证时
 - 响应主体（Response）
-服务器返回的是啥就是啥
 
-## HTTP请求方式
+
+## HTTP 请求方式
 所有的请求都可以给服务器端传递内容，也都可以从服务器端获取内容
 1. GET 系列
   - `get`：从服务器端获取数据（给的少拿的多）
-  - `delete`：删除服务器端的某些内容（一般是删除一些文件）
+  - `delete`：删除服务器端的数据
   - `head`：只想获取服务器返回的响应头信息，不要响应主体中的内容
   类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头。
   - `options`：一般向服务器发送一个探测性请求，如果服务器端返回信息了，说明当前客户端和服务器端建立了连接，可以继续执行其它请求了（trace更适合）
@@ -175,19 +158,19 @@ Cookie: ...//=>cookie信息一般都是放到头文件中实现和服务器端�
   - `connect`
 
 2. POST 系列
-  - `post`：向服务器端推送数据（给的多拿的少）
-  - `put`：向服务器上存放一些内容（一般是存放文件）`更新`
+  - `post`：向服务器端提交数据（新建数据）
+  - `put/patch`：更新数据
 
 
-## HTTP网络状态码（status）
-1. 分类：1-指示  2-成功  3-重定向  4-客户端错误   5-服务器错误
-2. 常见的HTTP状态码：
+## HTTP 网络状态码（status）
+1. 分类：1-指示（服务器收到请求）  2-成功  3-重定向  4-客户端错误   5-服务器错误
+2. 常见的 HTTP 状态码：
   - `200` - 请求成功（只能证明成功返回了，但是信息不一定是业务需要的）
-  - `301` - 资源被永久转移到其它URL
-    =>域名更改，访问原始域名重定向到新的域名
-  - `302` - 资源被临时转移到其它URL（临时重定向=>`307`）
+  - `301` - 资源被永久转移到其它URL（**永久重定向**）
+    =>域名更改，访问原始域名，配合 Location 重定向到新的域名，**以后都直接访问新的地址**
+  - `302` - 资源在本次请求被临时转移到其它URL（**临时重定向**）如果返回的状态码是 302，并配合 Location，浏览器会自动跳转到 Location 这个地址，**下次请求还是会先访问老地址**
     =>`307`：网站有的是基于HTTPS协议运作的，如果访问的是HTTP协议，会基于307重定向到HTTPS协议上
-    =>302一般用作服务器的负载均衡，当一台服务器达到最大并发数（同时处理用户的能力）时，会把后续访问的用户临时转移到其它的服务器机组上处理。例如，项目中会把所有图品放到单独的“图片处理服务器”上
+    =>302 一般用作服务器的负载均衡，当一台服务器达到最大并发数（同时处理用户的能力）时，会把后续访问的用户临时转移到其它的服务器机组上处理。例如，项目中会把所有图品放到单独的“图片处理服务器”上
   - `304` - 该资源在上次请求之后没有任何修改，可直接使用浏览器中的缓存版本
     对于不经常更新的资源文件，例如：css、js、HTML、IMG等，服务器会结合客户端设置304缓存，第一次加载过这些资源就缓存到客户端，下次再获取时，是从缓存中获取；如果资源更新，服务器端会通过最后修改时间来强制让客户端从服务器重新拉取；基于Ctrl+F5强制刷新页面，304缓存就没用了。
   - `400` - Bad Request 请求参数错误
@@ -197,6 +180,7 @@ Cookie: ...//=>cookie信息一般都是放到头文件中实现和服务器端�
   - `413` - Request Entity Too large 和服务器交互的内容资源超过服务器最大限制
   - `500` - Internal Server Error 未知服务器错误
   - `503` - Service Unavailable 服务器超负荷
+  - `504` - 网关超时
 
 
 客户端和服务器端信息交互的方式
@@ -216,10 +200,74 @@ Ajax的send中传递的内容，就是客户端设置的请求主体内容，服
 - 设置响应主体
 主要的返回信息都在响应主体中
 
+# HTTP 的缓存机制
+## 关于缓存的介绍
+什么是缓存？
+第一次访问一个新的网站，服务端必须全部返回所有数据。
+第二次访问可以直接拿缓存
+
+为什么要缓存？
+1）为了优化性能，尽量减少 HTTP 请求次数和数据体积，加快页面加载速度
+2）网络请求是不稳定的
+
+哪些资源可以被缓存？
+1）静态资源（js css img）
+webpack 打包上线后会为静态资源（js css img）加一个hash值后缀，不会变更 
+html、业务数据：一般不可缓存
+
+
+## 缓存策略
+强制缓存
+协商缓存
+
+刷新操作方式，对缓存的影响
+
 
 
 
 # 常见面试题
+## HTTP的基础知识
+### 常见的状态码
+### 报文组成
+### 常见的 header
+1. 通用头（General Headers）
+  - URL
+  - Method
+  - Status Code
+  - Remote Address: 61.135.169.121:443 //=>主机地址（服务器外网IP地址）
+  - Referrer Policy: no-referrer-when-downgrade //=>指定请求是从哪个页面跳转来的，分析用户来源
+
+
+2. 请求头（Request Headers）
+  - `Accept`：浏览器可接收的数据格式，比如 text/html
+  - `Accept-Encoding`：浏览器可接收的压缩算法，如 gzip（服务器端将资源压缩变小，浏览器可解压）
+  - Accept-Languange：浏览器可接收的语言，如 zh-CN
+  - `Connection`：keep-alive 一次 TCP 连接可重复使用
+  - `Cookie`：（同域）服务器发送到浏览器并保存在本地的数据，浏览器再次发送请求时会携带上
+  - Host：请求的域名
+  - `User-Agent`（简称 UA）：标识浏览器信息（哪个浏览器）
+  - `Content-type`：发送数据的格式（请求为 POST／PATCH 时会出现），如 application/json
+  - `Cache-Control`：
+
+3. 响应头（Response Headers）
+  - `Accept-Encoding`：返回数据的压缩算法，如 gzip
+  - `Set-Cookie`：服务端返回的用于修改本地的 Cookie
+  - `Content-type`：返回数据的格式，如 application/json、image/png
+  - `Content-length`：返回数据的大小，多少字节
+  - `Date`: Sun, 27 May 2018 01:13:00 GMT //=>服务器端响应内容的时间，和客户端拿到响应内容的真实时间有误差，因为返回到客户端需要时间。GMT 是格林尼治时间
+
+4. 缓存相关的 headers
+  - Cache-Control Expires
+  - Last-Modified If-Modified-Sincess
+  - Etag If-None-Match
+
+5. 自定义 header（简单的权限验证）
+
+
+
+
+### 请求方式
+
 ## 输入一个URL
 面试题：打开一个浏览器，在地址栏输入一个URL，按下enter键，到看到整个页面。中间都经历了哪些步骤？
 
@@ -239,7 +287,7 @@ xhr.send("xxx=xx&xx=xx");
 GET 基于问号传参把信息传递给服务器的，容易被骇客进行 URL 劫持，POST是基于请求主体传递的，相对来说不好被劫持。
 =>所以登录、注册等涉及安全性的交互操作，一般用 POST 请求。
 
-- 第三，GET通过 URL 传递参数有长度限制，POST 没有限制。
+- 第三，GET 通过 URL 传递参数有长度限制，POST 没有限制。
 `浏览器对于URL的长度有最大限制`（谷歌8KB、火狐7KB、IE2KB...），GET 请求基于问号传参，拼接URL不要过长，超出部分会被浏览器截断，POST 请求基于主体传递，没有限制。
 => 向服务器发送数据较大用 POST
 
@@ -253,7 +301,7 @@ xhr.open('GET',`/temp/list?lx=1000&_=${Math.random()}`);//=>每一次请求的�
 - 第五，GET 后退/前进不会重复提交，POST 会重复提交。
 
 
-## HTTP协议的主要特点
+## HTTP 协议的主要特点
 HTTP 协议基于客户端/服务端（C/S）的架构模型。浏览器作为 HTTP 客户端通过 URL 向 HTTP 服务端即WEB服务器发送所有请求。主要特点有：
 - 简单快速
 HTTP使用统一资源标识符（Uniform Resource Identifiers, URI）来传输数据和建立连接。
@@ -280,4 +328,28 @@ HTTP协议采用“请求-应答”模式。
 特点：说出前3点就可以
 ![](http://upload-images.jianshu.io/upload_images/8059334-79298364963ff9fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## HTTP的报文组成，请求方式，状态码
+
+## 什么是 Restful API？
+一种 API 设计方法：把每个 URL 当作一个唯一的资源（传统的 API 设计：将每个 URL 当作一个功能）
+
+如何设计成一个资源？
+- 尽量不用 URL 问号查询参数
+```js
+// 传统 API 设计：/api/list?pageIndex=2
+// Restful API 设计：/api/list/2 （2: 第二页资源的标识）
+//=>去掉 URL 参数，写一个完整的 URL，做一个唯一资源的唯一标识
+```
+- 用 method 表示操作类型
+```js
+// 传统 API 设计：
+  // POST 请求：/api/create-blog
+  // PATCH 请求：/api/update-blog?id=100
+  // GET 请求：/api/get-blog?id=100
+// Restful API 设计：
+  // POST 请求：/api/blog
+  // PATCH 请求：/api/blog/100
+  // GET 请求：/api/blog/100
+```
+
+
+## 描述以下 HTTP 的缓存机制（重要）
