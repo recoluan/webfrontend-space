@@ -104,7 +104,7 @@ DHTML：动态页面，泛指当前页面中的内容不是写死的而是动态
 
 
 
-## HTTP报文
+## HTTP 报文
 在客户端向服务器发送请求，以及服务器把内容响应给客户端时，中间相互传递了很多内容（客户端把一些内容传递给服务器，服务器把一些内容响应给客户端），我们把传递的内容统称为“HTTP 报文”。
 
 1. 起始行：
@@ -124,7 +124,7 @@ Referrer Policy: no-referrer-when-downgrade //=>指定请求是从哪个页面�
 HTTP/1.1 200 OK //=>响应起始行，304表示是从上次缓存直接拿的，if-Modified-Since是记录上一次缓存时间
 Bdpagetype: 2
 Bdqid: 0xdf36fb1600050d34
-Cache-Control: private
+cache-control: private
 Connection: Keep-Alive
 Content-Encoding: gzip
 Content-Type: text/html;charset=utf-8
@@ -172,7 +172,7 @@ Connection: keep-alive
     =>`307`：网站有的是基于HTTPS协议运作的，如果访问的是HTTP协议，会基于307重定向到HTTPS协议上
     =>302 一般用作服务器的负载均衡，当一台服务器达到最大并发数（同时处理用户的能力）时，会把后续访问的用户临时转移到其它的服务器机组上处理。例如，项目中会把所有图品放到单独的“图片处理服务器”上
   - `304` - 该资源在上次请求之后没有任何修改，可直接使用浏览器中的缓存版本
-    对于不经常更新的资源文件，例如：css、js、HTML、IMG等，服务器会结合客户端设置304缓存，第一次加载过这些资源就缓存到客户端，下次再获取时，是从缓存中获取；如果资源更新，服务器端会通过最后修改时间来强制让客户端从服务器重新拉取；基于Ctrl+F5强制刷新页面，304缓存就没用了。
+    对于不经常更新的资源文件，例如：css、js、HTML、img等，服务器会结合客户端设置304缓存，第一次加载过这些资源就缓存到客户端，下次再获取时，是从缓存中获取；如果资源更新，服务器端会通过最后修改时间来强制让客户端从服务器重新拉取；基于Ctrl+F5强制刷新页面，304缓存就没用了。
   - `400` - Bad Request 请求参数错误
   - `401` - Unauthorized 无权限访问
   - `404` - Not Found 请求的资源不存在（地址不对）
@@ -217,19 +217,80 @@ html、业务数据：一般不可缓存
 
 
 ## 缓存策略
-强制缓存
-协商缓存
+完整的流程图：自己会画一遍
 
-刷新操作方式，对缓存的影响
+<img width="756" alt="http缓存综述" src="https://user-images.githubusercontent.com/22387652/90789019-f8cbc900-e338-11ea-9977-72bf62fa2190.png">
+
+### 强制缓存
+1. 强制缓存的流程
+<img width="444" alt="强制缓存" src="https://user-images.githubusercontent.com/22387652/90702833-d4330b00-e2be-11ea-90df-3cbe880d52d1.png">
+
+在**初次请求**时，服务器端除了返回请求的资源，如果是可以被缓存的资源（css、js、HTML、img），还会在 Response Headers 中返回一个 cache-control，用于**控制强制缓存的逻辑**。
+
+例如 cache-control: public, max-age=15552000（单位是秒）
+
+如果客户端**再次请求**，距离上次请求的时间还在 cache-control 规定的时间范围内，就会去本地缓存寻找资源，然后返回资源。（不经过网络）。
+
+如果**缓存过期了**（超过 cache-control 规定的时间范围），服务端会重新请求，重新返回 cache-control。
+
+2. cache-control 的值
+- `max-age`： 设置缓存最大过期时间
+- `no-cache`：不用本地缓存，正常到服务端去请求
+- no-store：不用本地缓存，也不用服务端做缓存处理，让服务端简单粗暴的直接返回
+- private：允许最终用户做缓存
+- public：允许中间代理做缓存
+
+3. 关于 Expires（已经被 cache-control 代替）
+
+
+### 协商缓存
+又叫对比缓存。**服务端缓存策略**。不是缓存在服务端。
+
+服务端来判断本地资源和服务端资源是否一样（上次请求之后是否有修改），一致就告诉客户端用本地缓存。
+
+怎么告诉呢？**返回 304，否则返回 200 和最新的资源。**
+
+怎么判断本地资源和服务端资源是否一样？
+**资源标识**，有两种：
+- **资源的最后修改时间**
+  + Response Headers 中 的 Last-Modified
+  + 对应 Request Headers 中的 If-Modified-Sincess，值一样 
+- **资源的唯一标识（一个字符串，类似于指纹）**
+  + Response Headers 中 的 Etag
+  + 对应 Request Headers 中的 If-None-Match
+
+
+
+1. 协商缓存的流程
+<img width="492" alt="协商缓存" src="https://user-images.githubusercontent.com/22387652/90787750-a4741980-e337-11ea-84bc-33f8b8e877c8.png">
+
+
+1）**初次请求**，如果是可以被缓存的资源（css、js、HTML、img），服务端会返回资源和资源标识（`Last-Modified`），同时把资源也缓存下来。
+2）**再次请求**时，Request Headers 中会携带资源标识（`If-Modified-Sincess`），服务器拿到资源标识，判断本地资源是不是服务端最新的资源。
+=> 如果是最新的，返回 304，如果不是最新的，返回 最新的资源 和 新的资源标识（`Last-Modified`）。
+    + 根据最后修改时间判断：服务端资源的最后修改时间是否和 带来的 If-Modified-Sincess 是否一致，一致，说明服务端资源没有被修改过。
+    + 根据 Etag：服务端判断生成的标识字符串是不是一样的
+    
+2. Last-Modified 和 Etag
+可以共存，会优先使用 Etag
+Last-Modified 只能精准到秒级，如果资源被重复生成而内容不变，Etag 更精确。
+
+
+## 刷新操作对缓存的影响（了解）
+三种刷新操作：
+1）正常操作：输入URL 刷新、跳转链接、前进后退 =》强制缓存、协商缓存有效
+2）手动刷新：cmd + R，点击刷新按钮 =》强制缓存失效、协商缓存有效
+3）强制刷新：shift + cmd + 2 =》都失效
+
 
 
 
 
 # 常见面试题
 ## HTTP的基础知识
-### 常见的状态码
+### 常见的状态码（重要）
 ### 报文组成
-### 常见的 header
+### 常见的 header（重要）
 1. 通用头（General Headers）
   - URL
   - Method
@@ -247,7 +308,7 @@ html、业务数据：一般不可缓存
   - Host：请求的域名
   - `User-Agent`（简称 UA）：标识浏览器信息（哪个浏览器）
   - `Content-type`：发送数据的格式（请求为 POST／PATCH 时会出现），如 application/json
-  - `Cache-Control`：
+  - `cache-control`
 
 3. 响应头（Response Headers）
   - `Accept-Encoding`：返回数据的压缩算法，如 gzip
@@ -255,25 +316,23 @@ html、业务数据：一般不可缓存
   - `Content-type`：返回数据的格式，如 application/json、image/png
   - `Content-length`：返回数据的大小，多少字节
   - `Date`: Sun, 27 May 2018 01:13:00 GMT //=>服务器端响应内容的时间，和客户端拿到响应内容的真实时间有误差，因为返回到客户端需要时间。GMT 是格林尼治时间
+  - `cache-control`
 
 4. 缓存相关的 headers
-  - Cache-Control Expires
+  - cache-control Expires
   - Last-Modified If-Modified-Sincess
   - Etag If-None-Match
 
 5. 自定义 header（简单的权限验证）
 
-
-
-
 ### 请求方式
 
-## 输入一个URL
+## 输入一个URL（重要）
 面试题：打开一个浏览器，在地址栏输入一个URL，按下enter键，到看到整个页面。中间都经历了哪些步骤？
 
 ==二次握手、三次挥手==
 
-## GET 与 POST 的区别
+## GET 与 POST 的区别（重要）
 - 第一，传递给服务器信息的方式不一样
 GET 基于`URL地址问号传参`、POST 基于`请求主体`
 ```javascript
@@ -299,6 +358,31 @@ xhr.open('GET',`/temp/list?lx=1000&_=${Math.random()}`);//=>每一次请求的�
 ```
 
 - 第五，GET 后退/前进不会重复提交，POST 会重复提交。
+
+## 什么是 Restful API？
+一种 API 设计方法：把每个 URL 当作一个唯一的资源（传统的 API 设计：将每个 URL 当作一个功能）
+
+如何设计成一个资源？
+- 尽量不用 URL 问号查询参数
+```js
+// 传统 API 设计：/api/list?pageIndex=2
+// Restful API 设计：/api/list/2 （2: 第二页资源的标识）
+//=>去掉 URL 参数，写一个完整的 URL，做一个唯一资源的唯一标识
+```
+- 用 method 表示操作类型
+```js
+// 传统 API 设计：
+  // POST 请求：/api/create-blog
+  // PATCH 请求：/api/update-blog?id=100
+  // GET 请求：/api/get-blog?id=100
+// Restful API 设计：
+  // POST 请求：/api/blog
+  // PATCH 请求：/api/blog/100
+  // GET 请求：/api/blog/100
+```
+
+
+## 描述以下 HTTP 的缓存机制（重要）
 
 
 ## HTTP 协议的主要特点
@@ -327,29 +411,3 @@ HTTP协议采用“请求-应答”模式。
 
 特点：说出前3点就可以
 ![](http://upload-images.jianshu.io/upload_images/8059334-79298364963ff9fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
-## 什么是 Restful API？
-一种 API 设计方法：把每个 URL 当作一个唯一的资源（传统的 API 设计：将每个 URL 当作一个功能）
-
-如何设计成一个资源？
-- 尽量不用 URL 问号查询参数
-```js
-// 传统 API 设计：/api/list?pageIndex=2
-// Restful API 设计：/api/list/2 （2: 第二页资源的标识）
-//=>去掉 URL 参数，写一个完整的 URL，做一个唯一资源的唯一标识
-```
-- 用 method 表示操作类型
-```js
-// 传统 API 设计：
-  // POST 请求：/api/create-blog
-  // PATCH 请求：/api/update-blog?id=100
-  // GET 请求：/api/get-blog?id=100
-// Restful API 设计：
-  // POST 请求：/api/blog
-  // PATCH 请求：/api/blog/100
-  // GET 请求：/api/blog/100
-```
-
-
-## 描述以下 HTTP 的缓存机制（重要）
