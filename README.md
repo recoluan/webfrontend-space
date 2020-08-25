@@ -51,7 +51,9 @@ const a = [1, 2, 3, 4, 5, 7, 9],
 
 # Part03-全面解析this
 1. this 的不同应用场景，如何取值？
-2. 手写 bind、call、slice 函数
+2. 手写 call、apply
+3. 手写 bind 函数
+4. 手写数组的函数，比如 slice
 
 
 # Part04-原型和继承
@@ -60,6 +62,137 @@ const a = [1, 2, 3, 4, 5, 7, 9],
 3. class 的原型本质，怎么理解？
 
 # Part05-单线程、异步
+1. 什么是异步？同步和异步的区别是什么？
+2. 前端使用异步的场景有哪些？
+3. 请描述 Event Loop（事件循环／事件轮询）的机制，可画图
+4. 场景题：setTimeout 笔试题
+```js
+console.log(1)
+setTimeout(function () {
+  console.log(2)
+}, 1000);
+console.log(3)
+setTimeout(function () {
+  console.log(4)
+}, 0);
+console.log(5)
+// 1 3 5 4 2
+```
+5. 手写用 Promise 加载一张图片
+6. Promise 有哪几种状态，如何变化？
+7. 手写 Promise
+8. 场景题：Promise 语法
+```js
+// 第一题
+Promise.resolve().then(() => {
+  console.log(1)
+}).catch(() => {
+  console.log(2)
+}).then(() => {
+  console.log(3)
+})
+// 1 3
+```
+
+```js
+// 第二题
+Promise.resolve().then(() => {
+  console.log(1)
+  throw new Error('error')
+}).catch(() => {
+  console.log(2)
+}).then(() => {
+  console.log(3)
+})
+// 1 2 3
+```
+
+```js
+// 第三题
+Promise.resolve().then(() => {
+  console.log(1)
+  throw new Error('error')
+}).catch(() => {
+  console.log(2)
+}).catch(() => {
+  console.log(3)
+})
+// 1 2
+```
+
+9. 场景题：async/await 语法
+```js
+// 第一题
+async function fn() {
+  return 100
+}
+(async function () {
+  const a = fn() // ?? Promise 实例
+  const b = await fn() // ?? 100
+})()
+```
+
+```js
+// 第二题
+(async function () {
+  console.log('start')
+  
+  const a = await 100
+  console.log('a', a)
+
+  const b = await Promise.resolve(200)
+  console.log('b', b)
+  
+  const c = await Promise.reject(300)
+  console.log('c', c)
+
+  console.log('end')
+})()
+// start
+// a 100
+// b 200
+```
+
+10. 什么是宏任务、微任务，两者区别？
+11. 场景题：Promise、setTimeout 和  async/await 的执行顺序
+```js
+// 第一题
+console.log(100)
+setTimeout(() => {
+  console.log(200)
+})
+Promise.resolve().then(() => {
+  console.log(300)
+})
+console.log(400)
+// 100 400 300 200
+```
+
+```js
+// 第二题：头条面试题
+async function async1() {
+  console.log('async1 start')
+  await async2()
+  console.log('async1 end')
+}
+async function async2() {
+  console.log('async2')
+}
+console.log('script start')
+setTimeout(function () {
+  console.log('setTimeout')
+}, 0)
+
+async1()
+
+new Promise(function (resolve) => {
+  console.log('promise1')
+  resolve()
+}).then(function () {
+  console.log('promise2')
+})
+console.log('script end')
+```
 
 # Part06-JS Web API（BOM、DOM、AJAX、事件）
 1. DOM 是哪种数据结构？
@@ -85,8 +218,12 @@ const a = [1, 2, 3, 4, 5, 7, 9],
 # 各种手写代码
 1. 手写深拷贝
 2. 手写 flat
-3. 手写 bind 函数
-4. 手写一个简易的 AJAX
+3. 手写数组的函数，比如 slice
+3. 手写 call、apply
+4. 手写 bind 函数
+5. 手写一个简易的 AJAX
+6. 实现一个 axios
+7. 手写 Promise
 
 
 <!-- # Part4 异步和性能
