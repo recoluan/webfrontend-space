@@ -204,8 +204,9 @@ console.log('script end')
 # Part07-页面渲染与性能优化
 1. 从输入一个 URL 到渲染出页面的整个过程
 2. window.onload 和 DOMContentLoaded 的区别？
-3. 手写节流 throttle、防抖 debounce   
-    考点：性能、体验优化
+3. 常见的性能优化方案
+4. 手写防抖 debounce、节流 throttle   
+5. 常见的 web 前端攻击方式有哪些
 
 
 # ES 6/7/8/9
@@ -221,6 +222,7 @@ console.log('script end')
 5. 手写一个简易的 AJAX
 6. 实现一个 axios
 7. 手写 Promise
+8. 手写防抖 debounce、节流 throttle
 
 
 <!-- # Part4 异步和性能
