@@ -8,13 +8,6 @@
 
 
 
-1. window.onload 和 DOMContentLoaded 的区别？
-    考点：页面渲染、加载过程 -》 为什么 把 css 文件的加载放在 head 标签里，把 script 文件放在 body 最底下？
-2. 手写节流 throttle、防抖 debounce   
-    考点：性能、体验优化
-3. Promise 解决了什么问题？
-    考点：JS 异步 -》 同步、异步的区别 -》 异步的应用场景 -》 定时器应该在什么场景下去使用？
-
 
 ![image](https://user-images.githubusercontent.com/22387652/88448616-32143480-ce72-11ea-876d-035e71625625.png)
 
@@ -209,6 +202,10 @@ console.log('script end')
 
 
 # Part07-页面渲染与性能优化
+1. 从输入一个 URL 到渲染出页面的整个过程
+2. window.onload 和 DOMContentLoaded 的区别？
+3. 手写节流 throttle、防抖 debounce   
+    考点：性能、体验优化
 
 
 # ES 6/7/8/9
