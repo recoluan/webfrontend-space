@@ -345,8 +345,10 @@ frag = null;//=>清空 frag
 # 常见面试题
 ## DOM 是哪种数据结构？ DOM 树型结构
 ## DOM 操作常用的 API
+查找、添加、删除、移动 DOM 节点
 ## attribute 和 property 的区别
-## 一次性插入多个 DOM 节点，考虑性能
+## 一次性插入多个 DOM 节点，考虑性能（如何减少 DOM 操作）
+
 
 
 
