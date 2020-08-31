@@ -8,21 +8,17 @@
 
 
 
-
-![image](https://user-images.githubusercontent.com/22387652/88448616-32143480-ce72-11ea-876d-035e71625625.png)
-
-![image](https://user-images.githubusercontent.com/22387652/88448656-a9e25f00-ce72-11ea-8333-f98e9ae17ebb.png)
-
-
-
 # Part01-变量和类型
 1. 声明变量的几种方式？=>var 和 let、const的区别
 2. 数据类型：有哪些类型，值类型与引用类型的区别
 3. 何时使用 === ，何时使用 ==
+4. 列举强制类型转换和隐式类型转换
 4. 数组中用过哪些方法？
+- push、pop、unshift、shift 的区别
 - splice 和 slice 的区别
-- for-in、for-of、for、forEach 的区别
 - filter、map、find、forEach 的区别
+- for-in、for-of、for、forEach 的区别
+- split 和 join 的区别（反转）
 5. 数组去重
 6. 手写 flatern（数组拍平）
 7. 知道 concat 吗？手写一个
