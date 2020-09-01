@@ -54,6 +54,24 @@ history：历史记录
 - history.back()
 - history.forward()
 
+# 常见面试题
+如何捕获JS中的异常？
+```js
+// 1. 手动捕获
+try {
+    // todo
+} catch (err) {
+    console.error(err)
+} finally {
+    // todo
+}
+// 2. 自动捕获
+window.onerror = function (message, source, lineNum, colNum, error) {
+    // 第一，对跨域的 js，如 CDN 的，不会有详细的报错信息
+    // 第二，对于压缩的 js，还要配合 sourceMap 反查到未压缩代码的行、列 
+}
+```
+
 
 
 
