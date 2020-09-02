@@ -411,6 +411,8 @@ o.foo(); // 3
 这块大概有个规律：括号表达式，this 会变为 window，如果只是(obj.fn)()this 还是 obj。
 
 # 常见面试题
+## this 的不同应用场景，如何取值？
+## 场景题
 ```js
 const obj = {
     name: 'zhangsan',

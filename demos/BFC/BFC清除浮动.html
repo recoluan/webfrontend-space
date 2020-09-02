@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <style type="text/css">
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    .wrapper {
+        background-color: red;
+        /* 解决：给wrapper创建一个BFC */
+        overflow: hidden;
+    }
+    .float {
+        float: left;
+        font-size:30px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="float">我是浮动元素</div>
+    </div>
+    <!-- 可以看到，包裹父元素并没有背景色，并且height是0，这是为什么呢？？？因为浮动元素是脱离文档流的，它的高度并不会计算到包裹div的高度里。 -->
+</body>
+</html>

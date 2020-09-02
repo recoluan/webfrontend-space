@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <style type="text/css">
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    .wrapper {
+        width: 500px;
+        background-color: red;
+    }
+    .left {
+        float: left;
+        width: 100px;
+        height: 50px;
+        background-color: pink;
+    }
+    .right {
+        height: 110px;
+        background-color: green;
+        overflow: auto; /* BFC: BFC元素的区域不会与浮动元素的box重叠 */
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 左边固定宽度，右边自适应 -->
+    <div class="wrapper">
+        <div class="left"></div>
+        <div class="right">
+          float 有一个特性，就是当右边的高度高于左边时（110>100），右边会继续渲染左边没有float的元素，也就是左边与浮动元素的box发生重叠。
+          => 解决办法，就是给右边这个元素创建一个BFC
+        </div>
+    </div>
+</body>
+</html>
