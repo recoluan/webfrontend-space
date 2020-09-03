@@ -139,3 +139,7 @@ async function fn() {
 // b 200
 // 报错 Uncaught (in promise) 300
 ```
+2. Promise 和 async-await 的区别
+- 捕获错误：Promise 的 catch 机制，async-await 需要借助 try-catch
+- 批量：Promise.all，async-await 只能一个一个来
+- async-await 同步语法写异步的代码
