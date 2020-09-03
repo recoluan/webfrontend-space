@@ -25,3 +25,13 @@ console.log(iterator.next()); //"{value:undefined,done:true}"
 
 
 # Generator
+
+
+# 装饰器 @
+
+
+
+# 常见面试题
+## 用过 Generator 吗？
+## 装饰器的原理
+

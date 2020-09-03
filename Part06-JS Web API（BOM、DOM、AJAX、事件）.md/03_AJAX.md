@@ -126,6 +126,12 @@ setTimeout(()=>{
 （不能出现中文，必须在`open之后`才可以设置成功）
 编码：`encodeURIComponent`
 解码：`decodeURIComponent`
+
+```js
+// 设置请求数据类型
+xhr.setRequestHeader ("content-type", "application/x-www-form-urlencoded" )
+```
+
 - xhr.getAllResponseHeaders()：获取所有的响应头信息
 - xhr.getResponseHeader([key]) ：获取key对应的响应头信息
 - xhr.overrideMimeType()：重写MIME类型
@@ -486,3 +492,8 @@ ajax(url)
 .catch(err => console.log(err))
 ```
 
+## axios 和 fetch 的区别
+axios 本质上也是对**原生 Ajax** 的封装。支持防止 CSRF，基于 ES6 Promise 模式处理异步操作。
+
+fetch 是一种**原生实现的**请求方式，不是 ajax 的进一步封装，没有使用 XMLHttpRequest 对象。
+基于 ES6 Promise 实现，支持 async/await。
