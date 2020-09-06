@@ -411,7 +411,28 @@ o.foo(); // 3
 这块大概有个规律：括号表达式，this 会变为 window，如果只是(obj.fn)()this 还是 obj。
 
 # 常见面试题
-## this 的不同应用场景，如何取值？
+## this 的不同应用场景，如何取值？（重要）
+=> call 调用一个箭头函数？
+```js
+var a = 'global'
+const obj = {
+    a: 12,
+}
+const test = () => {
+    console.log(this.a)
+}
+test.call(obj) //=> 'global'
+```
+=> new 调用一个箭头函数？
+```js
+var a = 'global';
+const Foo = (a) => {
+  this.a = a;
+};
+var bar = new Foo(2); // 报错 Uncaught TypeError: Foo is not a constructor
+bar.a;
+```
+
 ## 场景题
 ```js
 const obj = {

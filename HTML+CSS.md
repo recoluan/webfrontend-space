@@ -107,6 +107,23 @@ box-sizing 属性的作用：
 	+ IE6~8
 	`[元素].currentStyle.xxx`，也返回一个`对象`。
 
+5. 场景题
+```html
+<!-- 如下代码，div1 的 offsetWidth 是多大？ -->
+<style>
+  #div1 {
+    width: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 10px;
+  }
+</style> 
+<div id="div1"></div>
+<!-- offsetWidth = content + padding + border -->
+<!-- 100 + 10 * 2 + 1 * 2 = 122px -->
+```
+=> 如果让 offsetWidth = 100px，该如何做？box-sizing: border-box;
+
 
 ### BFC
 BFC：块级格式化上下文（Block Formatting Context），指的是一个独立的块级渲染区域，该区域拥有一套渲染规则来约束块级盒子及其子元素的布局, 且与区域外部互不影响。
@@ -116,19 +133,19 @@ BFC：块级格式化上下文（Block Formatting Context），指的是一个�
 2）overflow 的值不为 visible，hidden/auto/scroll 都可以
 3）float 的值不为 none
 4）position 的值不为 static
-5）display 属性为 inline-block、table 相关
+5）display 属性为 flex、inline-block、table 相关
 
 2. BFC 的原理（渲染规则）
-1）BFC元素在页面上是一个独立的容器，BFC里面的元素与外面的元素互不影响
+1）BFC元素在页面上是一块独立的渲染区域，BFC内部元素的渲染与外面的元素互不影响
 2）同一个BFC下的子元素在垂直方向上会发生边距重叠
 3）BFC的元素区域不会被浮动元素的box遮盖
 4）计算BFC高度的时，浮动元素也会参与计算
 
 
 3. BFC 在布局当中的应用
-1）包含浮动元素（在高度上）
+1）清除浮动
 在通常情况下父元素的高度会被子元素撑开。但如果其子元素为浮动元素，我们知道浮动元素是脱离文档流的，其高度并不会计算到包裹div的高度里，则会产生高度塌陷问题。
-怎么解决这个问题呢，就是给包裹div创建一个BFC。
+怎么解决这个问题呢，就是给包裹父 div 创建一个 BFC。
 
 2）解决元素被浮动元素遮盖的问题
 这是典型的浮动兄弟元素的遮盖问题：左边元素浮动，右边元素未浮动也不是BFC，左右两侧不在同一层内会发生遮挡问题。
@@ -162,11 +179,39 @@ IFC（内联元素格式化上下文）
 }
 ```
 ### margin 纵向重叠、负值的问题
-对 margin 的 top、left、right、bottom 设置 margin 负值
+1. margin 纵向重叠
+   - 相邻元素的 margin-top 和 margin-bottom 会发生重叠，按照 margin 重叠计算规则，间距取最大值 
+   - 空内容的 p 标签也会重叠 =》会被忽略
+  
+```html
+<!-- 如下代码，AAA 和 BBB 之间的距离是多少？ -->
+<style>
+  p {
+    line-height: 1;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+</style> 
+<p>AAA</p>
+<p></p>
+<p></p>
+<p>BBB</p>
+<!-- 答案：15px -->
+```
 
 
 
-### 如何实现圣杯布局和双飞翼布局（PC 端常见）
+
+2. 对 margin 的 top、left、right、bottom 设置 margin 负值
+- margin-top 和 margin-left 设置负值，元素向上、向左移动
+- margin-right 设置负值，右侧元素左移，自身不受影响
+- margin-bottom 设置负值，下方元素上移，自身不受影响
+
+
+### float 布局
+如何实现圣杯布局和双飞翼布局（PC 端常见）
+
 
 
 ### flex 布局

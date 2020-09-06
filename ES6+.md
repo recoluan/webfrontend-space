@@ -35,3 +35,5 @@ console.log(iterator.next()); //"{value:undefined,done:true}"
 ## 用过 Generator 吗？
 ## 装饰器的原理
 
+
+

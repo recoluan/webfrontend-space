@@ -160,64 +160,6 @@ new Data(时间字符串)：把指定的时间字符串格式化为标准的北�
 1）在 AJAX 为2，就从响应头中获取时间，而不是等到状态变为 4  =>请求方式设置为 head，只获取响应头，不需要响应主体内容
 
 
-## AJAX 中的同步异步
-1. 异步
-```javascript
-const xhr = new XMLHttpRequest();//=>0
-xhr.open('GET','/temp/list', true);//=>1
-xhr.onreadystatechange = () =>{ //=>DOM事件绑定是异步的
-   if(xhr.readyState===2){console.log(1);}
-   if(xhr.readyState===4){console.log(2);}
-};
-xhr.send(); //=>当前AJAX任务开始，异步
-console.log(3);
-//=>3 1 2
-```
-
-```javascript
-const xhr=new XMLHttpRequest(); //=>0
-xhr.open('GET','/temp/list', true); //=>1
-xhr.send(); //=>当前 AJAX 任务开始，异步
-xhr.onreadystatechange = () => { //=>DOM事件绑定是异步的
-   if(xhr.readyState===2){console.log(1);}
-   if(xhr.readyState===4){console.log(2);}
-};
-console.log(3);
-//=>3 1 2
-```
-
-2. 同步
-AJAX 同步的弊端：
-1）阻塞下边同步代码的执行
-2）阻碍自己状态的监听。只有在状态变为 4 时，才触发 onreadystatechange 事件绑定的方法。
-```javascript
-const xhr = new XMLHttpRequest();
-xhr.open('GET','/temp/list', false);
-xhr.onreadystatechange = () => {
-   if(xhr.readyState===2){console.log(1);}//=>监听到了状态改变为 2，但主任务队列 AJAX 任务没有完成，被占着，没有执行
-   if(xhr.readyState===4){console.log(2);}
-};
-xhr.send();//=>任务开始（同步：只要当前 AJAX 任务完成(readyState 变为 4)，才可以继续做别的事情）
-console.log(3);
-//=>2 3
-```
-
-==AJAX 任务执行的一个特殊性：==
-当 AJAX 任务是同步任务时，AJAX 完成会`优先执行自己的 readystatechange 事件（虽然这个事件在等待任务队列）`，然后才执行后边的同步代码。例如，上边的栗子输出的是 2 3，而不是 3 2。
-
-
-```javascript
-const xhr = new XMLHttpRequest();
-xhr.open('GET','/temp/list', false);
-xhr.send(); //=>当前 AJAX 任务开始，同步（当 readyState 变为 4 时，还没有绑定状态的监听事件）
-xhr.onreadystatechange = () => {
-   if(xhr.readyState===2){console.log(1);}
-   if(xhr.readyState===4){console.log(2);}
-};
-console.log(3);
-//=>3
-```
-
 # axios 的 AJAX
 axios 是一个基于 Promise 管理的 AJAX 库。
 axios 只是一个`普通的函数`，在这个`函数上`（而不是它的原型上）定义了很多方法，准确的来说，axios 并不是一个类。

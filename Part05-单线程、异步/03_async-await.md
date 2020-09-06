@@ -3,7 +3,7 @@
 [TOC]
 
 1. 背景：
-Promise 的出现主要是解决 Callback Hell ，但它的 then 和 catch 的链式调用，也是基于回调函数。
+Promise 的出现主要是解决 Callback Hell ，但它一堆的 then 和 catch 的链式调用，也是基于回调函数。
 
 而 ES7 新增的 async-await 是同步语法写异步代码，彻底消灭回调函数。
 
@@ -140,6 +140,6 @@ async function fn() {
 // 报错 Uncaught (in promise) 300
 ```
 2. Promise 和 async-await 的区别
+- 语法上的区别：async-await 同步语法写异步的代码
 - 捕获错误：Promise 的 catch 机制，async-await 需要借助 try-catch
-- 批量：Promise.all，async-await 只能一个一个来
-- async-await 同步语法写异步的代码
+- 批量操作：Promise.all，async-await 只能一个一个来
