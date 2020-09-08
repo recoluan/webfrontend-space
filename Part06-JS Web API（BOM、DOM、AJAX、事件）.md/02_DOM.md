@@ -333,10 +333,10 @@ for (let i = 0; i < length; i++) {
 const listNode = document.getElementById('list');
 const frag = document.createDocumentFragment();//=>1.创建文档碎片容器，此时还没有插入到 DOM 树中
 for (let i = 0; i < 10; i++) {
-  const li = document.createElement('li');
+    const li = document.createElement('li');
   
-  li.innerHTML = `List item + ${i}`;
-	frag.appendChild(li);//=>2.每一次把创建的 li 先插入到文档碎片中
+    li.innerHTML = `List item + ${i}`;
+    frag.appendChild(li);//=>2.每一次把创建的 li 先插入到文档碎片中
 }
 listNode.appendChild(frag);//=>把文档中的碎片统一插入到 DOM 树中
 frag = null;//=>清空 frag

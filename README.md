@@ -153,10 +153,11 @@ async function fn() {
 // start
 // a 100
 // b 200
+// 报错
 ```
 
 10. Promise 和 async-await 的区别（重要）
-11. 什么是宏任务、微任务，两者区别？
+11. 什么是宏任务、微任务，两者区别？（重要）
 12. 场景题：Promise、setTimeout 和  async/await 的执行顺序
 ```js
 // 第一题
@@ -198,28 +199,36 @@ console.log('script end')
 ```
 
 # Part06-JS Web API（BOM、DOM、AJAX、事件）
-1. DOM 是哪种数据结构？
-2. DOM 操作常用的 API
-3. attribute 和 property 的区别
-4. 一次性插入多个 DOM 节点，考虑性能
-5. 手写一个简易的 AJAX
-6. 跨域的常用实现方式
-7. 编写一个通用的事件监听函数
-8. 描述事件冒泡的流程
-9. 场景题：无限下拉的图片列表（例如，瀑布流），如何监听每个图片的点击？
-10. 请描述一下 cookies，sessionStorage 和 localStorage 的区别
+1. 如何捕获 JS 中的异常？
+2. 什么是 JSON？常用的 API？
+3. DOM 是哪种数据结构？
+4. DOM 操作常用的 API
+5. attribute 和 property 的区别
+6. 一次性插入多个 DOM 节点，考虑性能
+7. 手写一个简易的 AJAX（重要）
+   => XMLHttpRequest 对象的工作流程
+8. axios 和 fetch、与 AJAX 的区别（重要）
+9. 什么是跨域？跨域的常见实现方式
+10. JSONP 的原理
+11. 描述事件冒泡的流程，如何阻止事件冒泡和事件的默认行为？
+12. 描述事件委托的原理
+13. 编写一个通用的事件监听函数
+14. 场景题：无限下拉的图片列表（例如，瀑布流），如何监听每个图片的点击？
+15. 请描述一下 cookies，sessionStorage 和 localStorage 的区别
 
 
 
 # Part07-页面渲染与性能优化
-1. 从输入一个 URL 到渲染出页面的整个过程
+1. 从输入一个 URL 到渲染出页面的整个过程（重要）
 2. window.onload 和 DOMContentLoaded 的区别？
-3. 常见的性能优化方案
+3. 常见的性能优化方案（重要）
 4. 手写防抖 debounce、节流 throttle   
 5. 常见的 web 前端攻击方式有哪些
 
 
 # ES6+
+1. Generator 与 async-await（重要）
+2. 装饰器的原理（重要）
 
 
 

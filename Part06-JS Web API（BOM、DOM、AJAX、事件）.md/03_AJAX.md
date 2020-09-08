@@ -7,7 +7,7 @@
 服务器端把数据和源代码进行拼接，客户端只负责展示
 => **非前后端分离的项目**：
 A：有利于 SEO 优化（页面源代码可以看到绑定的内容，有利于引擎收录）
-B：只能实现全局刷新（**页面整体刷新**）
+B：只能全局刷新（**页面整体刷新**）
 C：请求页面的后缀名一般不是.html，而是.php/.jsp/.asp
 
 
@@ -23,8 +23,8 @@ C：请求页面的后缀名一般不是.html，而是.php/.jsp/.asp
 2. **客户端渲染模型（基于AJAX）**
 服务器端只负责将数据返回，客户端自己将数据进行字符串拼接
 => **前后端分离项目**：
-A：不利于SEO优化（源代码中看不到动态增加的数据）
-B：实现**局部刷新**
+A：不利于 SEO 优化（源代码中看不到动态增加的数据）
+B：实现 **局部刷新**
 
 ![1527052346528](https://user-images.githubusercontent.com/22387652/90104394-ca694f00-dd76-11ea-892a-bd95a71e3ac9.png)
 
@@ -434,8 +434,17 @@ ajax(url)
 .catch(err => console.log(err))
 ```
 
-## axios 和 fetch 的区别
-axios 本质上也是对**原生 Ajax** 的封装。支持防止 CSRF，基于 ES6 Promise 模式处理异步操作。
+## axios 和 fetch、与 AJAX 的区别（重要）
+axios 本质上也是对**原生 Ajax** 的封装。
+- 基于 ES6 Promise 模式处理异步操作。
+- 支持防止 CSRF（请求是支持带 cookie 的）
+- 支持并发
 
-fetch 是一种**原生实现的**请求方式，不是 ajax 的进一步封装，没有使用 XMLHttpRequest 对象。
-基于 ES6 Promise 实现，支持 async/await。
+fetch 是一种**原生实现的**请求方式，脱离了 Ajax，没有使用 XMLHttpRequest 对象。
+- 基于 ES6 Promise 实现，支持 async/await
+- 对 400，500 都当做成功的请求，并不会 reject
+- 默认不带 cookie，需要添加配置项：credentials: 'include'
+- 不支持 abort，不支持超时控制，使用 setTimeout 及 Promise.
+- 无法监测请求的进度，而 XHR 可以
+
+

@@ -55,7 +55,7 @@ history：历史记录
 - history.forward()
 
 # 常见面试题
-如何捕获JS中的异常？
+## 如何捕获 JS 中的异常？
 ```js
 // 1. 手动捕获
 try {
@@ -71,6 +71,17 @@ window.onerror = function (message, source, lineNum, colNum, error) {
     // 第二，对于压缩的 js，还要配合 sourceMap 反查到未压缩代码的行、列 
 }
 ```
+
+## 什么是 JSON？常用的 API？
+JSON 是一种数据格式，本质是一段 **字符串**。
+
+JSON 中的对象和 JS 的对象结构几乎一致：
+- 对象的属性必须使用双引号
+- 末尾没有分号
+  
+window.JSON 是一个全局对象，常用的 API 有：
+- JSON.stringify()：把 JS 对象序列化为 JSON 字符串
+- JSON.parse()：把 JSON 字符串解析为 JS 值
 
 
 
