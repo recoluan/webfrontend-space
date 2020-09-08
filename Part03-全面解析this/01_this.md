@@ -433,7 +433,7 @@ var bar = new Foo(2); // 报错 Uncaught TypeError: Foo is not a constructor
 bar.a;
 ```
 
-## 场景题
+## this 指向场景题（重要）
 ```js
 const obj = {
     name: 'zhangsan',
@@ -447,4 +447,25 @@ const obj = {
 obj.sayHi();
 // obj
 // window
+```
+
+```js
+// 第二题：头条
+var length = 10;
+function fn() {
+  return this.length + 1;
+}
+var obj = {
+  length: 5,
+  test1: function() { // 改成箭头函数呢？
+    return fn();
+  }
+};
+obj.test2 = fn;
+//下面代码输出是什么
+
+console.log(obj.test1())
+console.log(fn() === obj.test2())
+// 11
+// false
 ```

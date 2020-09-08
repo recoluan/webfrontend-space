@@ -381,7 +381,7 @@ loadImg(url).then(img => {
 ```
 2. Promise 有哪几种状态，如何变化？
 3. 手写 Promise
-4. 场景题：Promise 语法
+4. 场景题：Promise 语法（重要）
 ```js
 // 第一题
 Promise.resolve().then(() => {

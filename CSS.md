@@ -159,7 +159,7 @@ IFC（内联元素格式化上下文）
 }
 ```
 
-## flex 布局
+## flex 布局（重要）
 父容器的属性：
 - flex-direction：规定主轴方向（水平 row 或垂直 column）
 - justify-content：主轴如何对齐。flex-start | flex-end | center | space-between | space-around;
@@ -174,15 +174,16 @@ IFC（内联元素格式化上下文）
 
 
 # CSS 定位
-## position 的几个属性，区别
+## position 的几个属性，区别（重要）
 absolute：依据最近一层的定位容器元素
 relative：依据自身定位
+fixed: 相对于浏览器窗口定位
 
 定位元素：
 - absolute、relative、fixed
 - body
 
-## 水平和垂直居中
+## 水平和垂直居中（重要）
 ### 水平居中
 - inline 元素：给父元素设置 text-align: center
 - 定宽 block 元素：margin: 0 auto
@@ -250,6 +251,13 @@ relative：依据自身定位
 造成本元素的重绘
 4. 读屏器不会读取display: none元素内容；会读取visibility: hidden元素内
 容
+
+
+## CSS 隐藏一个元素（重要）
+- opcity: 0
+- display: none
+- visibility: hidden
+- height: 0; overflow: hidden;
 
 
 ## CSS 选择器的级别
@@ -356,3 +364,23 @@ CSS 预处理语言，赋予了 CSS 如变量、继承、运算、函数等动�
 均具有“变量”、“混合”、“嵌套”、“继承”、“颜色混合”五大基本特性。
 
 reset.css 作用：能够重置浏览器的默认 CSS 样式。
+
+
+## CSS3 动画（重要）
++ transition：过度动画
++ animation：帧动画
+transform是变形不是动画（经常依托某一种动画让元素在一定时间内实现变形效果）
+能用CSS3的就不用JS，因为CSS3动画性能好。
++ keyFrame
+
+
+# 常考面试题
+```html
+<!-- 元素 p 内的文字最终什么颜色 -->
+<style>
+   .classA { color: blue; }
+   .classB { color: red;}
+</style>
+<p class="classB classA">hello</p>
+<!-- red：与 style 中样式定义的先后顺序有关，与 class 的先后无关 -->
+```

@@ -200,5 +200,6 @@ Function.prototype.call.call(fn1);//=>
 
 
 # 常见面试题
+## call、apply 与 bind 的区别
 ## 手写 call、apply
 ## 手写数组的函数，比如 slice
