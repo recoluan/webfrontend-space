@@ -32,7 +32,7 @@ console.log(iterator.next()); //"{value:undefined,done:true}"
 
 
 # 常见面试题
-## ES6 用过哪些新的特性？
+## ES6 用过哪些新的特性？（重要）
 ## 用过 Generator 吗？
 ## 装饰器的原理
 

@@ -343,6 +343,7 @@ xhr.open('GET',`/temp/list?lx=1000&_=${Math.random()}`);//=>每一次请求的�
 
 ## 描述一下 HTTP 的缓存机制（重要）
 
+## HTTP 1.0 和 HTTP 2.0 的区别（重要）
 
 ## HTTP 协议的主要特点
 HTTP 协议基于客户端/服务端（C/S）的架构模型。浏览器作为 HTTP 客户端通过 URL 向 HTTP 服务端即WEB服务器发送所有请求。主要特点有：
