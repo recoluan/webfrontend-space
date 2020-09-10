@@ -93,26 +93,28 @@ merge(arr1,arr2) // 返回 [-1, 1, 2, 2, 8, 9]
 3. DOM 是哪种数据结构？
 4. DOM 操作常用的 API
 5. attribute 和 property 的区别
-6. 一次性插入多个 DOM 节点，考虑性能
-7. 手写一个简易的 AJAX（重要）
+6. 手写一个简易的 AJAX（重要）
    => XMLHttpRequest 对象的工作流程
-8. axios 和 fetch、与 AJAX 的区别（重要）
-9. 什么是跨域？跨域的常见实现方式
-10. JSONP 的原理
-11. 描述事件冒泡的流程，如何阻止事件冒泡和事件的默认行为？
-12. 描述事件委托的原理
-13. 编写一个通用的事件监听函数
-14. 场景题：无限下拉的图片列表（例如，瀑布流），如何监听每个图片的点击？
-15. 请描述一下 cookies，sessionStorage 和 localStorage 的区别
+7. axios 和 fetch、与 AJAX 的区别（重要）
+8. 什么是跨域？跨域的常见实现方式
+9.  JSONP 的原理
+10. 描述事件冒泡的流程，如何阻止事件冒泡和事件的默认行为？
+11. 描述事件委托的原理
+12. 编写一个通用的事件监听函数
+13. 场景题：无限下拉的图片列表（例如，瀑布流），如何监听每个图片的点击？
+14. 请描述一下 cookies，sessionStorage 和 localStorage 的区别
 
 
 
 # Part07-页面渲染与性能优化
 1. 从输入一个 URL 到渲染出页面的整个过程（重要）
-2. window.onload 和 DOMContentLoaded 的区别？
-3. 常见的性能优化方案（重要）
-4. 手写防抖 debounce、节流 throttle（快手）  
-5. 常见的 web 前端攻击方式有哪些
+2. 常见的性能优化方案（重要）
+3. 介绍一下 window.requestAnimationFrame（简称 RAF、体验优化）
+4. CSS 动画和 JS 动画，哪个性能更好？为什么？
+5. 一次性插入多个 DOM 节点，考虑性能（如何减少 DOM 操作）
+6. window.onload 和 DOMContentLoaded 的区别？
+7. 手写防抖 debounce、节流 throttle，说明原理（快手）  
+8. 常见的 web 前端攻击方式有哪些
 
 
 # ES6+

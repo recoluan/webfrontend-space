@@ -11,7 +11,7 @@ B：只能全局刷新（**页面整体刷新**）
 C：请求页面的后缀名一般不是.html，而是.php/.jsp/.asp
 
 
-![1527050492575](https://user-images.githubusercontent.com/22387652/90104383-c5a49b00-dd76-11ea-978b-1c07be10f803.png)
+![服务器端渲染模型](https://user-images.githubusercontent.com/22387652/90104383-c5a49b00-dd76-11ea-978b-1c07be10f803.png)
 
 
 <img width="444" alt="1" src="https://user-images.githubusercontent.com/22387652/90107042-d820d380-dd7a-11ea-9f72-90c497db573e.png">
@@ -26,7 +26,7 @@ C：请求页面的后缀名一般不是.html，而是.php/.jsp/.asp
 A：不利于 SEO 优化（源代码中看不到动态增加的数据）
 B：实现 **局部刷新**
 
-![1527052346528](https://user-images.githubusercontent.com/22387652/90104394-ca694f00-dd76-11ea-892a-bd95a71e3ac9.png)
+![客户端渲染模型](https://user-images.githubusercontent.com/22387652/90104394-ca694f00-dd76-11ea-892a-bd95a71e3ac9.png)
 
 
 很多大网站（例如，淘宝，京东）的首屏数据是基于服务器端渲染的，客户端获取数据后直接呈现，增加页面第一次打开速度，其它屏是基于AJAX获取数据，在客户端进行数据拼接渲染的。

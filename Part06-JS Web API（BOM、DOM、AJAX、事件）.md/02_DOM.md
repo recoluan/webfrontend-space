@@ -304,50 +304,11 @@ function queryAllById(id){
 [curEle].cloneNode( true )：==深克隆==，当前的标签和里边的内容都克隆
 
 
-
-# DOM 性能
-避免频繁的 DOM 操作，操作 DOM 是非常消耗性能的
-- 对 DOM 做查询缓存
-- 将频繁操作改为一次性操作（打包一次性插入）
-
-## DOM 做查询缓存
-```js
-// 不缓存 DOM 查询结果
-for (let i = 0; i < document.getElementsByTagName('p'); i++) {
-    // 每次循环都会计算 length，频繁进行 DOM 查询
-}
-
-// 缓存 DOM 查询结果
-const pList = document.getElementsByTagName('p');
-const length = pList.length;
-for (let i = 0; i < length; i++) {
-    // 缓存 length，只进行一次 DOM 查询
-}
-```
-
-## 将频繁操作改为一次性操作
-当`需要动态向页面追加元素`时，基于文档碎片或者把需要增加的所有元素拼接成字符串
-- 基于`文档碎片`
-文档碎片是在虚拟内存中开辟的一个容器。每当创建一个li，我们首先把它放到文档碎片中，（千万不要放到页面中，避免回流），当我们需要的元素都创建完，把文档碎片一次性打包到页面中。
-```js
-const listNode = document.getElementById('list');
-const frag = document.createDocumentFragment();//=>1.创建文档碎片容器，此时还没有插入到 DOM 树中
-for (let i = 0; i < 10; i++) {
-    const li = document.createElement('li');
-  
-    li.innerHTML = `List item + ${i}`;
-    frag.appendChild(li);//=>2.每一次把创建的 li 先插入到文档碎片中
-}
-listNode.appendChild(frag);//=>把文档中的碎片统一插入到 DOM 树中
-frag = null;//=>清空 frag
-```
-
 # 常见面试题
 ## DOM 是哪种数据结构？ DOM 树型结构
 ## DOM 操作常用的 API
 查找、添加、删除、移动 DOM 节点
 ## attribute 和 property 的区别
-## 一次性插入多个 DOM 节点，考虑性能（如何减少 DOM 操作）
 
 
 
