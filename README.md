@@ -116,20 +116,7 @@ merge(arr1,arr2) // 返回 [-1, 1, 2, 2, 8, 9]
 
 
 # ES6+
-1. Generator 与 async-await（重要）
+1. Generator 与 async-await（重要！！！）
 2. 装饰器的原理（重要）
-
-
-
-# 各种手写代码
-1. 手写深拷贝
-2. 手写 flat
-3. 手写数组的函数，比如 slice
-3. 手写 call、apply
-4. 手写 bind 函数
-5. 手写一个简易的 AJAX
-6. 实现一个 axios
-7. 手写 Promise
-8. 手写防抖 debounce、节流 throttle
 
 
