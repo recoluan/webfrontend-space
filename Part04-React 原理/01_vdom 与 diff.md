@@ -43,7 +43,7 @@ vdom：用 JS 模拟 DOM 结构，计算出最小的变更，操作 DOM。
   }
 }
 ```
-snabbdom
+
 
 # diff
 React 的 render() 方法，会创建一棵由 React 元素组成的树。在下一次 state 或 props 更新时，相同的 render() 方法会返回一棵不同的树。
@@ -116,10 +116,12 @@ const NumberList = (props) => {
 
 ![new-element-diff](https://user-images.githubusercontent.com/22387652/87259950-6afef180-c4e1-11ea-9920-ad2216fd9134.png)
 
+在 React Diff 算法中，会**借助元素的 key 值来判断该元素是新创建的还是被移动而来的元素**，从而减少不必要的元素重新渲染。
 
 tag 和 key 相同，即为同一节点，因此， diff 结果为：B、D 不做任何操作，A、C 进行移动操作。
 
-**注意：不要用索引当 key 值，一般使用 列表数据中的唯一的 id 值。**
+要保证元素的 key 在同一层级的元素中具有唯一性。
+**注意：不要用索引、随机数当 key 值，一般使用 列表数据中的唯一的 id 值。**
 
 如果使用索引，在第一项或者中间项插入一项，后边所有的 key 都会发生变化，都会重新渲染。
 
@@ -139,6 +141,7 @@ patch 函数
 - [React 源码剖析系列 － 不可思议的 react diff](https://zhuanlan.zhihu.com/p/20346379)
 
 
-# 面试高频题目
-1. 列表渲染为何使用 key？key 为什么不能使用 index 和 random？
-diff 算法中通过 tag 和 key 来判断，不是不 sameNode
+# 常见面试题
+## 说一下 React diff 算法 （重要！！！）
+## 列表渲染为何使用 key？key 为什么不能使用 index 和 random？（重要）
+diff 算法中通过 tag 和 key 来判断，是不是 sameNode

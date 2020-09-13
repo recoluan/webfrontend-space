@@ -13,6 +13,38 @@ React 原理考察：
 - 整体流程是否全面（闭环思维），热门技术是否有深度？比如 vdom 和 diff、Hook
 
 
+# Part01-React 基础
+1. MVC 和 MVVM 的区别（重要）
+2. React 和 Vue 的区别？共通之处？
+3. 怎么理解 React
+4. JSX 本质是什么
+5. React 是怎么模拟双向数据绑定，原理
+6. 函数组件 和 class 组件的区别
+7. React 受控组件和非受控组件的区别
+8. props 和 state 的区别
+9. 组件之间通信方式（重要）
+10. Context 是什么，有何用途？
+11. 说一下 React 组件的生命周期，都有哪些改变（重要！！！）
+
+# Part02-React 高级
+1. 什么是高阶组件？在项目中一般怎么使用？(重要)
+2. 谈一谈 HOC、Render props、Hooks（重要）
+
+# Part03-Hook
+
+# Part04-React 原理
+1. 说一下 React diff 算法 （重要！！！）
+2. 列表渲染为何使用 key？key 为什么不能使用 index 和 random？（重要）
+
+
+# Part05-Redux
+
+# Part06-React Router
+
+# Part07-性能优化
+
+
+
 # React 面试系列目录
 1. React 与 Vue 的对比
   - MVVM、MVC

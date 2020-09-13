@@ -103,10 +103,11 @@ map2.get('b') // 50
 
 
 
-# 面试高频题目
-1. shouldComponentUpdate（SCU） 的用途 *
-2. SCU PureComponent memo immutable
-3. 手写深度比较，模拟 lodash 的 isEqual
+# 常见面试题
+1. shouldComponentUpdate（SCU） 的用途
+2. PureComponent、memo、immutable（重要）
+   => 为什么要引入 immutable.js？
+1. 手写深度比较，模拟 lodash 的 isEqual
 ```js
 function isObject(obj) {
     return typeof obj === 'object' && obj !== null;

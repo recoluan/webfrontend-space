@@ -108,5 +108,5 @@ Transaction 对象结构如下图所示：
 ![transcation](https://user-images.githubusercontent.com/22387652/87503042-c96cd100-c695-11ea-9adc-3409cf285dad.png)
 
 
-# 面试高频题目
+# 常见面试题
 1. batchUpdate

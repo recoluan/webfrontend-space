@@ -173,7 +173,7 @@ function connect(mapStateToProps, mapDispatchToProps) {
 
 ```
 
-# 面试高频题目
+# 常见面试题
 1. connect 原理 *
 
 

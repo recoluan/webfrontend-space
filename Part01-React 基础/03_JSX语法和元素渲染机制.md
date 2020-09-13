@@ -18,11 +18,11 @@ JSX 可以创建一个 `React 元素`。每一个 JSX 只能有一个根元素�
 1. `JSX中的{}`：存放JS代码，可以将数据嵌入到JSX中。
 - 基本类型的值
 	+ 布尔类型：什么都不显示
-	+ null / undefined：也是JSX元素，代表的是空
+	+ null/undefined：也是 JSX 元素，代表的是空
 
 - 引用类型的值：
-	+ 不能直接放对象（除了给style赋值）
-	+ 数组（数组中不能有对象，基本值或JSX元素可以）
+	+ 不能直接放对象（除了给 style 赋值）
+	+ 数组（数组中不能有对象，基本值或 JSX 元素可以）
 	+ 函数不行（`自执行函数可以`）
 ```javascript
   ReactDOM.render(<div>
@@ -41,8 +41,8 @@ JSX 可以创建一个 `React 元素`。每一个 JSX 只能有一个根元素�
 ```
 
 - JS表达式：但是要求执行完有`返回的结果`
-	+ 使用三元运算符解决判断操作，（if和switch都不可以）	
-	+ 循环数组（map方法）创建JSX元素列表，设置唯一的key值
+	+ 使用三元运算符解决判断操作，（if 和 switch 都不可以）	
+	+ 循环数组（map 方法）创建 JSX 元素列表，设置唯一的 key 值
 ```javascript
   //data：数组，存放的是对象（包含name和age两个属性）
   ReactDOM.render(<ul>
@@ -56,7 +56,7 @@ JSX 可以创建一个 `React 元素`。每一个 JSX 只能有一个根元素�
       }
   </ul>, root);
 ```
-2. 给JSX元素设置属性：
+2. 给 JSX 元素设置属性：
 属性值对应大括号中`对象、函数都可以放`（也可以放JS表达式）
 - style 属性值必须是对象（不能是样式字符串）
 - class 用 className 代替
@@ -83,7 +83,7 @@ babel 是一个强大的正则解析库。
 3. 第三步，基于 render 方法，把动态生成的虚拟 DOM 元素，插入到指定的容器中
 **ReactDOM.render([JSX],[container],[callback])**;
 	+ JSX：`React 虚拟元素`
-	+ container：容器，把元素放到页面中的那个容器中，不建议把JSX直接渲染到document.body中，一般挂载到一个ID为root的div中（根节点）。可以基于document.getElementById('root')获取，也可以直接写root。
+	+ container：容器，把元素放到页面中的那个容器中，不建议把 JSX 直接渲染到 document.body 中，一般挂载到一个 ID 为 root 的 div（根节点）中。
 	+ callback：把内容放到页面中呈现触发的回调函数
 ```javascript
 ReactDOM.render(<div>
@@ -91,6 +91,33 @@ ReactDOM.render(<div>
 </div>, document.getElementById('root'));
 ```
 
+```js
+<div class="container" style="font-size: 12px">
+  <h1 class="greeting">
+    Hello, world!
+  </h1>
+</div>
 
-# 面试高频题目
-1. JSX 本质是什么 *
+```
+等同于使用 React.createElement() 创建了一个这样的对象：
+```js
+{
+  type: 'div',
+  props: {
+    className: 'container',
+    style: 'font-size: 12px',
+    children: [
+      {
+        type: 'h1',
+        props: {
+          className: 'greeting',
+          children: 'Hello, world!'
+        }
+      }
+    ]
+  }
+}
+```
+
+# 常见面试题
+## JSX 本质是什么

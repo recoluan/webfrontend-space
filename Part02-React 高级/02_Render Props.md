@@ -22,7 +22,7 @@
 ```
 
 # children prop
-render prop 是因为模式才被称为 render prop ，属性名不一定要使用 render。
+render prop 是因为模式才被称为 render prop，属性名不一定要使用 render。
 
 **也可以简单地使用 children prop！**
 ```js

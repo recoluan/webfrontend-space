@@ -166,7 +166,7 @@ store.dispatch = function dispatchAndLog(action) {
 }
 ```
 
-# 面试高频题目
+# 常见面试题
 1. redux 如何进行异步请求？
   - 异步 action *
   - redux-thunk

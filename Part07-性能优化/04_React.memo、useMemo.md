@@ -33,7 +33,7 @@ export default React.memo(MyComponent, areEqual);
 - [使用 React.memo 和 useMemo 对 Function Component 进行性能优化](http://www.ptbird.cn/react-hook-useMemo-purerender.html)
 
 
-# 面试高频题目
+# 常见面试题
 1. 对 React.memo 的理解 *
 考 React.memo, 三个场景
 

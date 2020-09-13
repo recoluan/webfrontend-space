@@ -199,7 +199,7 @@ class App extends React.Component {
 # 参考文档
 - [你真的理解setState吗？](https://juejin.im/post/5b45c57c51882519790c7441)
 
-# 面试高频题目
+# 常见面试题
 1. setState() 的合并更新 *
 
 2. setState 是同步还是异步？*

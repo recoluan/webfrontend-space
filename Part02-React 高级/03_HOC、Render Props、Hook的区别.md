@@ -47,7 +47,7 @@ const MouseTracker = props => {
   );
 };
 
-export default withMouse(HocMouseTracker);
+export default withMouse(MouseTracker);
 ```
 
 ```js
@@ -120,7 +120,7 @@ class Mouse extends React.Component {
 ```js
 import useMouse from "./useMouse";
 
-const HookMouseTracker = () => {
+const MouseTracker = () => {
   const mouse = useMouse();
 
   return (
@@ -185,5 +185,5 @@ const useMouse = () => {
 
 
 
-# 面试高频题目
-1. 谈一谈 HOC、Render props、Hooks
+# 常见面试题
+## 谈一谈 HOC、Render props、Hooks（重要）

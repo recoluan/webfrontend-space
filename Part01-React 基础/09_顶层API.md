@@ -66,4 +66,4 @@ const MyComponent = (props) => {
 }
 ```
 
-# 面试高频题目
+# 常见面试题

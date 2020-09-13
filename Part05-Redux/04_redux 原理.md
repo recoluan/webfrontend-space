@@ -118,5 +118,5 @@ function combineReducers(reducers) {
 
 ```
 
-# 面试高频题目（无）
+# 常见面试题（无）
 

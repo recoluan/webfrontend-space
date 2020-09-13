@@ -43,8 +43,8 @@ state 是组件的`内部状态数据`，在 constructor 中初始化，可以�
 
 
 
-# 面试高频题目
-1. props 和 state 的区别
+# 常见面试题
+## props 和 state 的区别
 
 
 
