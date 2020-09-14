@@ -167,8 +167,8 @@ store.dispatch = function dispatchAndLog(action) {
 ```
 
 # 常见面试题
-1. redux 如何进行异步请求？
-  - 异步 action *
+## redux 如何进行异步请求？
+  - 异步 action
   - redux-thunk
-2. 中间件 *
-3. 实现一个 redux-thunk、redux-promise
+## 中间件
+## 实现一个 redux-thunk、redux-promise，说明原理（重要）

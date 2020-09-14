@@ -58,7 +58,7 @@ function Counter() {
 # useCallback
 语法：
 ```js
-const memoizedCallback = useCallback(
+const memorizedCallback = useCallback(
   () => {
     doSomething(a, b);
   },
@@ -66,7 +66,7 @@ const memoizedCallback = useCallback(
 );
 ```
 - 将 内联回调函数及依赖项数组 作为参数
-- 返回一个 memoized 回调函数，该回调函数**仅在某个依赖项改变时才会更新**
+- 返回一个 memorized 回调函数，该回调函数**仅在某个依赖项改变时才会更新**
 
 > useCallback(fn, deps) 相当于 useMemo(() => fn, deps)。
 useCallback、useMemo 都是性能优化的手段
@@ -77,14 +77,14 @@ useCallback、useMemo 都是性能优化的手段
 
 # useMemo
 ```js
-const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+const memorizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 ```
 - 将 “创建”函数和依赖项数组 作为参数
-- 返回一个 memoized 值，仅会在某个依赖项改变时才重新计算 memoized 值
+- 返回一个 memorized 值，仅会在某个依赖项改变时才重新计算 memorized 值
 
 记住，传入 useMemo 的函数会在渲染期间执行。请不要在这个函数内部执行与渲染无关的操作，诸如副作用这类的操作属于 useEffect 的适用范畴，而不是 useMemo。
 
-
+==和 SCU 的关系？？？==
 
 
 

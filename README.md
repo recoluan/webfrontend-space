@@ -31,18 +31,31 @@ React 原理考察：
 2. 谈一谈 HOC、Render props、Hooks（重要）
 
 # Part03-Hook
+1. 说一下对 React Hook 的理解（重要！！！）
 
 # Part04-React 原理
 1. 说一下 React diff 算法 （重要！！！）
 2. 列表渲染为何使用 key？key 为什么不能使用 index 和 random？（重要）
-
+3. 说一说 React 的合成事件机制，为什么引入？（重要！！！美团）
+4. setState 的合并更新（重要！！！）
+5. setState 是同步还是异步（重要！！！）
 
 # Part05-Redux
+1. 描述 redux 的单项数据流模型
+2. redux 如何进行异步请求
+3. 中间件
+4. 实现一个 redux-thunk、redux-promise，说明原理（重要）
+5. connect 原理
 
 # Part06-React Router
+无
 
 # Part07-性能优化
-
+1. 何时使用异步组件？react-router 如何配置懒加载？
+2. shouldComponentUpdate（SCU） 的用途
+3. 手写深度比较，模拟 lodash 的 isEqual
+4. PureComponent、memo、immutable（重要）
+5. 对 React.memo 的理解
 
 
 # React 面试系列目录

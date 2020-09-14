@@ -144,4 +144,4 @@ patch 函数
 # 常见面试题
 ## 说一下 React diff 算法 （重要！！！）
 ## 列表渲染为何使用 key？key 为什么不能使用 index 和 random？（重要）
-diff 算法中通过 tag 和 key 来判断，是不是 sameNode
+diff 算法中通过 tag 和 key 来判断，是不是 sameNode，是同一个 dom 元素，就是移动位置。
